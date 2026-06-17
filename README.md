@@ -69,7 +69,6 @@ wiki-ingest로 raw 안의 자료를 넣어줘
 | `wiki-lint` | `wiki-lint로 건강검진 해줘` | `$wiki-lint` | 링크·출처·고아 페이지 검사 |
 | `ontology-check` | `ontology-check로 구조 검사해줘` | `$ontology-check` | T-Box/A-Box 일관성 검증 |
 | `vibe-wiki-session` | `vibe-wiki-session으로 시작해줘` | `$vibe-wiki-session` | 세션 시작 맥락 불러오기 + 종료 저장 |
-| `wiki-release` | `wiki-release로 ZIP 만들어줘` | `$wiki-release` | 배포용 ZIP 패키징 |
 
 ## 폴더 구조
 
