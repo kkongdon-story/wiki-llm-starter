@@ -14,7 +14,7 @@
 </p>
 
 <p>
-  <a href="docs/user-guide.html"><strong>📖 완전 사용 설명서</strong></a> &nbsp;|&nbsp;
+  <a href="https://kkongdon-story.github.io/wiki-llm-starter/user-guide.html"><strong>📖 완전 사용 설명서</strong></a> &nbsp;|&nbsp;
   <a href="START_HERE.ko.md"><strong>🚀 빠른 시작</strong></a>
 </p>
 
@@ -90,7 +90,7 @@ wiki-llm-starter/
 
 | 문서 | 내용 |
 |---|---|
-| [📖 완전 사용 설명서](docs/user-guide.html) | ZIP 해제부터 고급 사용까지 9개 탭 HTML 가이드 |
+| [📖 완전 사용 설명서](https://kkongdon-story.github.io/wiki-llm-starter/user-guide.html) | ZIP 해제부터 고급 사용까지 9개 탭 HTML 가이드 |
 | [🚀 빠른 시작](START_HERE.ko.md) | 1분 요약 + 첫 ingest 실행 |
 | [📐 운영 규칙](docs/llm-wiki-rules.ko.md) | Ingest / Query / Lint 상세 절차 |
 | [🗺️ 온톨로지 가이드](docs/ontology-guide.ko.md) | T-Box / A-Box 설계 원칙 |
