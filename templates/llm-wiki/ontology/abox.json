@@ -1,0 +1,286 @@
+{
+  "instances": [
+    {
+      "id": "karpathy_llm_wiki_post",
+      "label": "Karpathy LLM Wiki Post",
+      "types": ["Source"]
+    },
+    {
+      "id": "llm_wiki",
+      "label": "LLM Wiki",
+      "types": ["Concept"]
+    },
+    {
+      "id": "ontology_layer",
+      "label": "Ontology Layer",
+      "types": ["Concept"]
+    },
+    {
+      "id": "obsidian",
+      "label": "Obsidian",
+      "types": ["Tool"]
+    },
+    {
+      "id": "wiki_llm_rules_page",
+      "label": "LLM Wiki Rules Page",
+      "types": ["WikiPage"]
+    },
+    {
+      "id": "ingest_query_lint",
+      "label": "Ingest Query Lint",
+      "types": ["Workflow"]
+    },
+    {
+      "id": "knowledge_compounds_claim",
+      "label": "Knowledge compounds when the wiki is maintained",
+      "types": ["Claim"]
+    },
+    {
+      "id": "llm_memory_illusion_ai_memory",
+      "label": "LLM 메모리의 착각: AI는 실제로 어떻게 기억하는가",
+      "types": ["Source"]
+    },
+    {
+      "id": "llm_memory_source_page",
+      "label": "LLM Memory Illusion Source Page",
+      "types": ["WikiPage"]
+    },
+    {
+      "id": "llm_memory_page",
+      "label": "LLM Memory Page",
+      "types": ["WikiPage"]
+    },
+    {
+      "id": "context_window_page",
+      "label": "Context Window Page",
+      "types": ["WikiPage"]
+    },
+    {
+      "id": "external_memory_page",
+      "label": "External Memory Page",
+      "types": ["WikiPage"]
+    },
+    {
+      "id": "project_memory_page",
+      "label": "Project Memory Page",
+      "types": ["WikiPage"]
+    },
+    {
+      "id": "vector_database_page",
+      "label": "Vector Database Page",
+      "types": ["WikiPage"]
+    },
+    {
+      "id": "manage_ai_memory_page",
+      "label": "Manage AI Memory Page",
+      "types": ["WikiPage"]
+    },
+    {
+      "id": "llm_memory",
+      "label": "LLM 메모리",
+      "types": ["Concept"]
+    },
+    {
+      "id": "context_window",
+      "label": "컨텍스트 윈도우",
+      "types": ["Concept"]
+    },
+    {
+      "id": "external_memory",
+      "label": "외부 메모리",
+      "types": ["Concept"]
+    },
+    {
+      "id": "project_memory",
+      "label": "프로젝트 메모리",
+      "types": ["Concept"]
+    },
+    {
+      "id": "vector_database",
+      "label": "벡터 데이터베이스",
+      "types": ["Tool"]
+    },
+    {
+      "id": "manage_ai_memory",
+      "label": "AI 메모리 관리",
+      "types": ["Workflow"]
+    },
+    {
+      "id": "llms_have_no_default_memory_claim",
+      "label": "LLMs have no default cross-session memory",
+      "types": ["Claim"]
+    },
+    {
+      "id": "context_window_short_term_memory_claim",
+      "label": "Context windows function as short-term memory",
+      "types": ["Claim"]
+    },
+    {
+      "id": "external_memory_long_term_memory_claim",
+      "label": "External memory functions as long-term memory",
+      "types": ["Claim"]
+    },
+    {
+      "id": "memory_facts_user_control_claim",
+      "label": "Users can manage stored AI memory facts",
+      "types": ["Claim"]
+    },
+    {
+      "id": "insights_from_current_sources_question",
+      "label": "지금 들어가있는 자료를 바탕으로 얻을 수 있는 통찰",
+      "types": ["Question"]
+    },
+    {
+      "id": "design_memory_environment_answer",
+      "label": "AI에게 기억을 맡기지 말고 기억 환경을 설계하라",
+      "types": ["Answer"]
+    }
+  ],
+  "facts": [
+    {
+      "subject": "karpathy_llm_wiki_post",
+      "relation": "mentions",
+      "object": "llm_wiki"
+    },
+    {
+      "subject": "karpathy_llm_wiki_post",
+      "relation": "mentions",
+      "object": "ontology_layer"
+    },
+    {
+      "subject": "wiki_llm_rules_page",
+      "relation": "derived_from",
+      "object": "karpathy_llm_wiki_post"
+    },
+    {
+      "subject": "ingest_query_lint",
+      "relation": "uses_tool",
+      "object": "obsidian"
+    },
+    {
+      "subject": "karpathy_llm_wiki_post",
+      "relation": "supports_claim",
+      "object": "knowledge_compounds_claim"
+    },
+    {
+      "subject": "llm_memory_illusion_ai_memory",
+      "relation": "mentions",
+      "object": "llm_memory"
+    },
+    {
+      "subject": "llm_memory_illusion_ai_memory",
+      "relation": "mentions",
+      "object": "context_window"
+    },
+    {
+      "subject": "llm_memory_illusion_ai_memory",
+      "relation": "mentions",
+      "object": "external_memory"
+    },
+    {
+      "subject": "llm_memory_illusion_ai_memory",
+      "relation": "mentions",
+      "object": "project_memory"
+    },
+    {
+      "subject": "llm_memory_source_page",
+      "relation": "derived_from",
+      "object": "llm_memory_illusion_ai_memory"
+    },
+    {
+      "subject": "llm_memory_page",
+      "relation": "derived_from",
+      "object": "llm_memory_illusion_ai_memory"
+    },
+    {
+      "subject": "context_window_page",
+      "relation": "derived_from",
+      "object": "llm_memory_illusion_ai_memory"
+    },
+    {
+      "subject": "external_memory_page",
+      "relation": "derived_from",
+      "object": "llm_memory_illusion_ai_memory"
+    },
+    {
+      "subject": "project_memory_page",
+      "relation": "derived_from",
+      "object": "llm_memory_illusion_ai_memory"
+    },
+    {
+      "subject": "vector_database_page",
+      "relation": "derived_from",
+      "object": "llm_memory_illusion_ai_memory"
+    },
+    {
+      "subject": "manage_ai_memory_page",
+      "relation": "derived_from",
+      "object": "llm_memory_illusion_ai_memory"
+    },
+    {
+      "subject": "external_memory",
+      "relation": "related_to",
+      "object": "vector_database"
+    },
+    {
+      "subject": "manage_ai_memory",
+      "relation": "related_to",
+      "object": "llm_memory"
+    },
+    {
+      "subject": "manage_ai_memory",
+      "relation": "related_to",
+      "object": "context_window"
+    },
+    {
+      "subject": "manage_ai_memory",
+      "relation": "related_to",
+      "object": "external_memory"
+    },
+    {
+      "subject": "manage_ai_memory",
+      "relation": "related_to",
+      "object": "project_memory"
+    },
+    {
+      "subject": "llm_memory_illusion_ai_memory",
+      "relation": "supports_claim",
+      "object": "llms_have_no_default_memory_claim"
+    },
+    {
+      "subject": "llm_memory_illusion_ai_memory",
+      "relation": "supports_claim",
+      "object": "context_window_short_term_memory_claim"
+    },
+    {
+      "subject": "llm_memory_illusion_ai_memory",
+      "relation": "supports_claim",
+      "object": "external_memory_long_term_memory_claim"
+    },
+    {
+      "subject": "llm_memory_illusion_ai_memory",
+      "relation": "supports_claim",
+      "object": "memory_facts_user_control_claim"
+    },
+    {
+      "subject": "design_memory_environment_answer",
+      "relation": "answers",
+      "object": "insights_from_current_sources_question"
+    },
+    {
+      "subject": "insights_from_current_sources_question",
+      "relation": "mentions",
+      "object": "llm_wiki"
+    },
+    {
+      "subject": "insights_from_current_sources_question",
+      "relation": "mentions",
+      "object": "llm_memory"
+    },
+    {
+      "subject": "insights_from_current_sources_question",
+      "relation": "mentions",
+      "object": "external_memory"
+    }
+  ]
+}

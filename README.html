@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LLM Wiki Starter — AI 지식 뇌 시스템</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0f1117;color:#e8eaf0;line-height:1.6}
+.wrap{max-width:860px;margin:0 auto;padding:48px 24px}
+.badge-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px}
+.badge{padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.04em}
+.b-p{background:rgba(124,106,247,.2);color:#a89ef7}
+.b-g{background:rgba(52,199,89,.15);color:#34c759}
+.b-o{background:rgba(255,159,10,.15);color:#ff9f0a}
+.b-b{background:rgba(10,132,255,.15);color:#0a84ff}
+h1{font-size:36px;font-weight:900;line-height:1.2;margin-bottom:14px}
+h1 span{color:#7c6af7}
+.sub{font-size:16px;color:#8b91a8;margin-bottom:40px;max-width:600px;line-height:1.7}
+.cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:56px}
+.cta{padding:12px 24px;border-radius:8px;font-size:14px;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all .15s}
+.cta-pri{background:#7c6af7;color:#fff}
+.cta-pri:hover{background:#6a59e0;transform:translateY(-1px)}
+.cta-sec{background:#1a1d27;color:#e8eaf0;border:1px solid #2a2d3a}
+.cta-sec:hover{border-color:#7c6af7;transform:translateY(-1px)}
+.div{border:none;border-top:1px solid #2a2d3a;margin:48px 0}
+.sh{font-size:22px;font-weight:700;margin-bottom:8px}
+.ss{font-size:13px;color:#8b91a8;margin-bottom:28px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin-bottom:36px}
+.card{background:#1a1d27;border-radius:10px;padding:20px;border:1px solid #2a2d3a}
+.card-icon{font-size:24px;margin-bottom:10px}
+.card h3{font-size:13px;font-weight:600;margin-bottom:6px}
+.card p{font-size:12px;color:#8b91a8;line-height:1.5}
+.flow{display:flex;align-items:center;gap:10px;background:#1a1d27;border-radius:12px;padding:20px 24px;border:1px solid #2a2d3a;margin-bottom:36px;flex-wrap:wrap}
+.fb{text-align:center;flex:1;min-width:80px}
+.fi{font-size:20px;margin-bottom:4px}
+.fl{font-size:10px;font-weight:600}
+.fs{font-size:9px;color:#8b91a8}
+.fa{color:#3a3f52;font-size:18px}
+.code{background:#0a0c14;border-radius:8px;padding:16px 20px;font-family:'SF Mono','Fira Code',monospace;font-size:12px;color:#a8d8a8;border:1px solid #2a2d3a;line-height:1.8;margin-bottom:14px;position:relative}
+.code .c{color:#555d7a}
+.cp{position:absolute;top:10px;right:12px;background:#2a2d3a;border:none;color:#8b91a8;border-radius:4px;padding:3px 10px;font-size:10px;cursor:pointer}
+.cp:hover{background:#7c6af7;color:#fff}
+.cols2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:28px}
+@media(max-width:600px){.cols2{grid-template-columns:1fr}.flow{flex-direction:column}}
+.skill-table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:28px}
+.skill-table th{background:#1a1d27;color:#8b91a8;font-size:11px;text-transform:uppercase;letter-spacing:.06em;padding:10px 14px;text-align:left;border-bottom:1px solid #2a2d3a}
+.skill-table td{padding:10px 14px;border-bottom:1px solid #1a1d27;vertical-align:top}
+.skill-table tr:hover td{background:#1a1d27}
+.skill-table code{font-family:'SF Mono',monospace;color:#a8d8a8;font-size:11px}
+.info{border-radius:8px;padding:14px 18px;font-size:12px;line-height:1.7;border:1px solid;margin-bottom:20px}
+.info-p{background:rgba(124,106,247,.08);border-color:rgba(124,106,247,.25);color:#a89ef7}
+.info-g{background:rgba(52,199,89,.08);border-color:rgba(52,199,89,.25);color:#34c759}
+footer{margin-top:64px;padding-top:24px;border-top:1px solid #2a2d3a;display:flex;align-items:center;justify-content:space-between;font-size:12px;color:#555d7a;flex-wrap:wrap;gap:8px}
+footer a{color:#7c6af7;text-decoration:none}
+footer a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- 헤더 -->
+  <div class="badge-row">
+    <span class="badge b-p">LLM Wiki Starter</span>
+    <span class="badge b-g">초보자 친화적</span>
+    <span class="badge b-o">Claude Code / Codex</span>
+    <span class="badge b-b">gbrain 검색 레이어</span>
+  </div>
+
+  <h1>자료를 넣을수록<br><span>더 똑똑해지는</span> AI 지식 뇌</h1>
+  <p class="sub">
+    AI가 내 맥락을 기억하고, 자료가 쌓일수록 더 정확하게 답하는 지식의 복리 시스템입니다.<br>
+    단순한 RAG가 아닙니다. 자료 → wiki 페이지 → 개념 연결 → 검색 인덱스까지 자동 누적됩니다.
+  </p>
+
+  <div class="cta-row">
+    <a href="docs/user-guide.html" class="cta cta-pri">📖 완전 사용 설명서 열기</a>
+    <a href="START_HERE.ko.md" class="cta cta-sec">🚀 빠른 시작</a>
+  </div>
+
+  <!-- 자료 흐름 -->
+  <div class="sh">자료가 답변이 되는 흐름</div>
+  <div class="ss">raw/에 넣기만 하면 AI가 나머지를 자동 처리합니다</div>
+  <div class="flow">
+    <div class="fb"><div class="fi">📄</div><div class="fl">원본 자료</div><div class="fs">raw/</div></div>
+    <div class="fa">→</div>
+    <div class="fb"><div class="fi">🤖</div><div class="fl">AI 분석</div><div class="fs">wiki-ingest</div></div>
+    <div class="fa">→</div>
+    <div class="fb"><div class="fi">📚</div><div class="fl">지식 페이지</div><div class="fs">wiki/</div></div>
+    <div class="fa">→</div>
+    <div class="fb"><div class="fi">✅</div><div class="fl">구조 검증</div><div class="fs">ontology</div></div>
+    <div class="fa">→</div>
+    <div class="fb"><div class="fi">🔍</div><div class="fl">검색 인덱스</div><div class="fs">gbrain</div></div>
+    <div class="fa">→</div>
+    <div class="fb"><div class="fi">💡</div><div class="fl">정확한 답변</div><div class="fs">wiki-query</div></div>
+  </div>
+
+  <!-- 특징 -->
+  <div class="sh">왜 다른가요?</div>
+  <div class="ss">RAG와 달리 답변이 지식 구조 안에 누적됩니다</div>
+  <div class="cards">
+    <div class="card"><div class="card-icon">🧠</div><h3>맥락 영구 보존</h3><p>AI에게 매번 새로 설명할 필요 없습니다. wiki/에 누적된 맥락을 자동으로 활용합니다.</p></div>
+    <div class="card"><div class="card-icon">🔗</div><h3>개념 자동 연결</h3><p>자료가 쌓일수록 개념 간 연결이 형성됩니다. 두 번째 질문이 첫 번째보다 더 나아집니다.</p></div>
+    <div class="card"><div class="card-icon">🏗️</div><h3>온톨로지 레이어</h3><p>T-Box/A-Box 분리로 개념 체계를 검증합니다. 잘못된 관계는 스크립트가 자동으로 잡아냅니다.</p></div>
+    <div class="card"><div class="card-icon">🔍</div><h3>의미 기반 검색</h3><p>gbrain 하이브리드 검색(Vector+BM25)으로 정확한 단어 없이도 관련 내용을 찾습니다.</p></div>
+  </div>
+
+  <!-- 빠른 시작 -->
+  <div class="div"></div>
+  <div class="sh">⚡ 빠른 시작 (Claude Code)</div>
+  <div class="ss">5단계로 완전 설치 — 터미널에 붙여넣기만 하세요</div>
+
+  <div class="code"><button class="cp" onclick="cp(this)">복사</button><span class="c"># 1. gbrain 설치 (한 번만)</span>
+bun install -g github:garrytan/gbrain
+gbrain init --pglite
+
+<span class="c"># 2. Claude Code에 연결</span>
+claude mcp add gbrain -- gbrain serve
+
+<span class="c"># 3. wiki 인덱싱</span>
+gbrain import templates/llm-wiki/wiki/</div>
+
+  <div class="code"><span class="c"># 4. Claude Code에서 첫 ingest</span>
+wiki-ingest로 raw 안의 자료를 넣어줘</div>
+
+  <div class="info info-g">✅ <strong>터미널이 낯선 분은</strong> → <a href="docs/user-guide.html" style="color:#34c759">완전 사용 설명서</a>의 🚀 첫 걸음 탭에서 ZIP 해제부터 첫 사용까지 시각적으로 안내합니다.</div>
+
+  <!-- 스킬 목록 -->
+  <div class="div"></div>
+  <div class="sh">🎯 운영 스킬</div>
+  <div class="ss">이름을 부르면 AI가 자동 실행합니다</div>
+  <table class="skill-table">
+    <thead><tr><th>스킬</th><th>Claude Code</th><th>Codex</th><th>역할</th></tr></thead>
+    <tbody>
+      <tr><td><code>wiki-ingest</code></td><td><code>wiki-ingest로 raw 자료 넣어줘</code></td><td><code>$wiki-ingest</code></td><td>raw/ → wiki + ontology + gbrain 동기화</td></tr>
+      <tr><td><code>wiki-query</code></td><td><code>wiki-query로 [질문] 답해줘</code></td><td><code>$wiki-query</code></td><td>wiki 기반 질문 답변</td></tr>
+      <tr><td><code>wiki-lint</code></td><td><code>wiki-lint로 건강검진 해줘</code></td><td><code>$wiki-lint</code></td><td>링크·출처·고아 페이지 검사</td></tr>
+      <tr><td><code>ontology-check</code></td><td><code>ontology-check로 구조 검사해줘</code></td><td><code>$ontology-check</code></td><td>T-Box/A-Box 일관성 검증</td></tr>
+      <tr><td><code>vibe-wiki-session</code></td><td><code>vibe-wiki-session으로 시작해줘</code></td><td><code>$vibe-wiki-session</code></td><td>세션 시작 맥락 불러오기 + 종료 저장</td></tr>
+      <tr><td><code>wiki-release</code></td><td><code>wiki-release로 ZIP 만들어줘</code></td><td><code>$wiki-release</code></td><td>배포용 ZIP 패키징</td></tr>
+    </tbody>
+  </table>
+
+  <!-- 폴더 구조 -->
+  <div class="div"></div>
+  <div class="sh">📁 폴더 구조</div>
+  <div class="cols2">
+    <div>
+      <div class="code" style="font-size:11px"><span class="c"># 프로젝트 루트</span>
+wiki-llm-starter/
+├── templates/llm-wiki/  <span class="c"># 시작 템플릿</span>
+│   ├── raw/             <span class="c"># 원본 자료 (수정 금지)</span>
+│   ├── wiki/            <span class="c"># AI 정리 지식 페이지</span>
+│   ├── ontology/        <span class="c"># 개념 체계 (tbox/abox)</span>
+│   └── schema/          <span class="c"># 페이지 작성 규칙</span>
+├── scripts/             <span class="c"># 검사 도구</span>
+├── docs/                <span class="c"># 사용 설명서</span>
+└── CLAUDE.md            <span class="c"># AI 행동 규칙</span></div>
+    </div>
+    <div>
+      <div style="background:#1a1d27;border-radius:10px;padding:18px;border:1px solid #2a2d3a;height:100%">
+        <div style="font-size:12px;font-weight:600;margin-bottom:12px">새 Vault 만들기</div>
+        <div style="font-size:12px;color:#8b91a8;line-height:1.8">
+          1. <code style="color:#a8d8a8">templates/llm-wiki</code> 복사<br>
+          2. 주제 이름으로 폴더명 변경<br>
+          3. <code style="color:#a8d8a8">raw/</code>에 첫 자료 넣기<br>
+          4. <code style="color:#a8d8a8">wiki-ingest</code> 실행<br>
+          5. <code style="color:#a8d8a8">wiki-query</code>로 질문하기
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 문서 링크 -->
+  <div class="div"></div>
+  <div class="sh">📄 문서</div>
+  <div class="cards" style="grid-template-columns:repeat(auto-fit,minmax(160px,1fr))">
+    <a href="docs/user-guide.html" style="text-decoration:none"><div class="card" style="cursor:pointer"><div class="card-icon">📖</div><h3>완전 사용 설명서</h3><p>ZIP 해제부터 고급 사용까지 9개 탭으로 정리된 HTML 가이드</p></div></a>
+    <a href="START_HERE.ko.md" style="text-decoration:none"><div class="card" style="cursor:pointer"><div class="card-icon">🚀</div><h3>빠른 시작</h3><p>1분 요약 + 첫 ingest 실행 방법</p></div></a>
+    <a href="docs/llm-wiki-rules.ko.md" style="text-decoration:none"><div class="card" style="cursor:pointer"><div class="card-icon">📐</div><h3>운영 규칙</h3><p>Ingest/Query/Lint 상세 절차</p></div></a>
+    <a href="docs/ontology-guide.ko.md" style="text-decoration:none"><div class="card" style="cursor:pointer"><div class="card-icon">🗺️</div><h3>온톨로지 가이드</h3><p>T-Box/A-Box 설계 원칙</p></div></a>
+    <a href="docs/life-application-guide.ko.md" style="text-decoration:none"><div class="card" style="cursor:pointer"><div class="card-icon">💡</div><h3>실생활 적용</h3><p>내 삶에 어떻게 적용할지 막막할 때</p></div></a>
+    <a href="docs/vibe-coding-operation-strategy.ko.md" style="text-decoration:none"><div class="card" style="cursor:pointer"><div class="card-icon">🛠️</div><h3>바이브 코딩 전략</h3><p>AI와 함께 프로덕트를 만드는 운영법</p></div></a>
+  </div>
+
+  <footer>
+    <span>LLM Wiki Starter — Andrej Karpathy의 LLM Wiki 방식을 초보자도 쓸 수 있게 만든 시작 템플릿</span>
+    <a href="docs/user-guide.html">사용 설명서 열기 →</a>
+  </footer>
+
+</div>
+<script>
+function cp(btn){
+  const block=btn.parentElement;
+  const lines=[];
+  block.childNodes.forEach(n=>{
+    if(n.nodeType===3)lines.push(n.textContent);
+    else if(n.tagName==='BR')lines.push('\n');
+    else if(!n.classList||(!n.classList.contains('cp')&&!n.classList.contains('c')))
+      lines.push(n.textContent);
+  });
+  const text=lines.join('').replace(/복사|✓/g,'').trim();
+  navigator.clipboard.writeText(text).then(()=>{btn.textContent='✓';setTimeout(()=>btn.textContent='복사',1500);});
+}
+</script>
+</body>
+</html>

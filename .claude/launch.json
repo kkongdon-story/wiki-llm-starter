@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "user-guide",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "-s", "docs", "-p", "5500", "--no-clipboard"],
+      "port": 5500
+    }
+  ]
+}

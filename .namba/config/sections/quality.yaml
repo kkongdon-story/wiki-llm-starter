@@ -1,0 +1,8 @@
+development_mode: ddd
+test_command: none
+lint_command: none
+typecheck_command: none
+build_command: none
+migration_dry_run_command: none
+smoke_start_command: none
+output_contract_command: none

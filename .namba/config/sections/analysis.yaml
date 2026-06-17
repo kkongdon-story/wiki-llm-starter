@@ -1,0 +1,6 @@
+include_paths: .
+exclude_paths: .git,.cache,.gocache,.idea,.vscode,.venv,venv,node_modules,dist,build,coverage,tmp,.tmp,logs,external,vendor,.namba/logs,.namba/project,.namba/worktrees
+source_priority: code,config,test,build,docs,planning,generated
+important_roles: operator,maintainer
+important_runtimes: unknown,git,codex
+output_template: foundation-v1

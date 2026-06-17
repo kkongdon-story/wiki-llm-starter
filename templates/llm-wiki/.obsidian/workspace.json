@@ -1,0 +1,201 @@
+{
+  "main": {
+    "id": "5d64d63d0913ebb8",
+    "type": "split",
+    "children": [
+      {
+        "id": "097cf4d757aca9d8",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "006c3a67db68adaa",
+            "type": "leaf",
+            "state": {
+              "type": "graph",
+              "state": {},
+              "icon": "lucide-git-fork",
+              "title": "그래프 뷰"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "0215145c2310add0",
+    "type": "split",
+    "children": [
+      {
+        "id": "5fbc5a1bbe17c5e0",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "10fae8900ab8b172",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "파일 탐색기"
+            }
+          },
+          {
+            "id": "f75f44f241d41840",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "검색"
+            }
+          },
+          {
+            "id": "2b888a22e473c84c",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "북마크"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "9fe5428ccb4ec5df",
+    "type": "split",
+    "children": [
+      {
+        "id": "669b11729eb61a08",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "fe8c6aada4c092be",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "wiki/concepts/llm-memory.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "llm-memory 의 백링크"
+            }
+          },
+          {
+            "id": "15cfc80121768b09",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "wiki/concepts/llm-memory.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "llm-memory 의 나가는 링크"
+            }
+          },
+          {
+            "id": "6f01bdac3d8caca6",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "태그"
+            }
+          },
+          {
+            "id": "bc80e8d010e10981",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "모든 속성"
+            }
+          },
+          {
+            "id": "11575f1ba1ef690a",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "wiki/concepts/llm-memory.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "llm-memory 의 개요"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:빠른 전환기 열기": false,
+      "graph:그래프 뷰 열기": false,
+      "canvas:새 캔버스 만들기": false,
+      "daily-notes:오늘의 일일 노트 열기": false,
+      "templates:템플릿 삽입": false,
+      "command-palette:명령어 팔레트 열기": false,
+      "bases:새 베이스 생성하기": false
+    }
+  },
+  "active": "006c3a67db68adaa",
+  "lastOpenFiles": [
+    "wiki/concepts/llm-memory.md",
+    "wiki/index.md",
+    "wiki/questions/insights-from-current-sources.md",
+    "wiki/concepts/llm-wiki.md",
+    "wiki/sources/llm-memory-illusion-ai-memory.md",
+    "wiki/sources/karpathy-llm-wiki-post.md",
+    "CLAUDE.md",
+    "schema/wiki-rules.md",
+    "schema/page-template.md",
+    "wiki/workflows/manage-ai-memory.md",
+    "wiki/entities/vector-database.md",
+    "wiki/concepts/project-memory.md",
+    "wiki/concepts/external-memory.md",
+    "wiki/concepts/context-window.md",
+    "log.md",
+    "wiki/workflows/ingest-query-lint.md"
+  ]
+}

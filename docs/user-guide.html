@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LLM Wiki 스타터 — 완전 사용 설명서</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0f1117;color:#e8eaf0;line-height:1.6;min-height:100vh}
+.nav{display:flex;gap:2px;padding:14px 20px 0;border-bottom:1px solid #2a2d3a;background:#0f1117;position:sticky;top:0;z-index:100;flex-wrap:wrap}
+.nb{padding:7px 13px;border-radius:6px 6px 0 0;background:transparent;border:none;color:#8b91a8;cursor:pointer;font-size:11.5px;font-weight:500;transition:all .15s;white-space:nowrap}
+.nb:hover{color:#e8eaf0;background:#1a1d27}
+.nb.active{color:#7c6af7;border-bottom:2px solid #7c6af7;background:#1a1d27}
+.section{display:none;padding:28px 24px;max-width:960px;margin:0 auto}
+.section.active{display:block}
+.hero{text-align:center;padding:44px 24px 36px;background:linear-gradient(160deg,#1a1d27 0%,#0f1117 100%);border-radius:14px;margin-bottom:32px;border:1px solid #2a2d3a}
+.hero-badge{display:inline-block;padding:4px 14px;border-radius:20px;background:rgba(124,106,247,.15);color:#a89ef7;font-size:10px;font-weight:700;letter-spacing:.1em;margin-bottom:18px;text-transform:uppercase}
+.hero h1{font-size:28px;font-weight:800;margin-bottom:12px;line-height:1.3}
+.hero h1 span{color:#7c6af7}
+.hero p{color:#8b91a8;font-size:14px;max-width:560px;margin:0 auto 20px}
+.hero-tags{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.hero-tag{padding:4px 12px;border-radius:20px;font-size:11px;background:#1a1d27;border:1px solid #2a2d3a;color:#8b91a8}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:28px}
+.card{background:#1a1d27;border-radius:10px;padding:18px 20px;border:1px solid #2a2d3a;transition:border-color .15s}
+.card:hover{border-color:#7c6af7}
+.card-icon{font-size:22px;margin-bottom:10px}
+.card h3{font-size:13px;font-weight:600;margin-bottom:6px}
+.card p{font-size:12px;color:#8b91a8;line-height:1.5}
+.steps{display:flex;flex-direction:column;gap:12px;margin-bottom:24px}
+.step{display:flex;gap:16px;align-items:flex-start;background:#1a1d27;border-radius:10px;padding:16px 18px;border:1px solid #2a2d3a}
+.sn{min-width:30px;height:30px;border-radius:50%;background:#7c6af7;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+.sn.o{background:#ff9f0a}.sn.g{background:#34c759}.sn.r{background:#ff453a}
+.step-body h4{font-size:13px;font-weight:600;margin-bottom:5px}
+.step-body p{font-size:12px;color:#8b91a8;margin-bottom:8px;line-height:1.5}
+.code{background:#0a0c14;border-radius:7px;padding:12px 16px;font-family:'SF Mono','Fira Code',monospace;font-size:12px;color:#a8d8a8;border:1px solid #2a2d3a;position:relative;margin-top:8px;line-height:1.7}
+.code .c{color:#555d7a}.code .k{color:#ff9f0a}
+.cp{position:absolute;top:8px;right:10px;background:#2a2d3a;border:none;color:#8b91a8;border-radius:4px;padding:3px 10px;font-size:10px;cursor:pointer;transition:all .15s;font-family:inherit}
+.cp:hover{background:#7c6af7;color:#fff}
+.sh{font-size:20px;font-weight:700;margin-bottom:6px}
+.ss{font-size:13px;color:#8b91a8;margin-bottom:24px;line-height:1.6}
+.div{border:none;border-top:1px solid #2a2d3a;margin:28px 0}
+.tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700;letter-spacing:.04em}
+.t-p{background:rgba(124,106,247,.2);color:#a89ef7}
+.t-g{background:rgba(52,199,89,.15);color:#34c759}
+.t-o{background:rgba(255,159,10,.15);color:#ff9f0a}
+.t-r{background:rgba(255,69,58,.15);color:#ff453a}
+.t-b{background:rgba(10,132,255,.15);color:#0a84ff}
+.info{border-radius:8px;padding:14px 16px;margin-bottom:20px;font-size:12px;line-height:1.6;border:1px solid}
+.info-p{background:rgba(124,106,247,.08);border-color:rgba(124,106,247,.25);color:#a89ef7}
+.info-g{background:rgba(52,199,89,.08);border-color:rgba(52,199,89,.25);color:#34c759}
+.info-o{background:rgba(255,159,10,.08);border-color:rgba(255,159,10,.25);color:#ff9f0a}
+.info-r{background:rgba(255,69,58,.08);border-color:rgba(255,69,58,.25);color:#ff6b6b}
+.cols2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
+@media(max-width:640px){.cols2{grid-template-columns:1fr}}
+.env-tabs{display:flex;gap:4px;margin-bottom:0}
+.env-tab{padding:7px 16px;border-radius:6px 6px 0 0;background:#1a1d27;border:1px solid #2a2d3a;border-bottom:none;color:#8b91a8;font-size:12px;cursor:pointer;font-weight:500}
+.env-tab.active{background:#0a0c14;color:#e8eaf0;border-color:#3a3f52}
+.env-panel{background:#0a0c14;border-radius:0 8px 8px 8px;border:1px solid #3a3f52;padding:16px}
+.env-content{display:none}
+.env-content.active{display:block}
+.cmd-sec{margin-bottom:28px}
+.cmd-sec h3{font-size:12px;font-weight:700;color:#7c6af7;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid #2a2d3a}
+.cmd-list{display:flex;flex-direction:column;gap:8px}
+.cmd-item{display:grid;grid-template-columns:260px 1fr;gap:14px;align-items:start;background:#1a1d27;border-radius:8px;padding:12px 16px;border:1px solid #2a2d3a}
+.cmd-item code{font-family:'SF Mono',monospace;font-size:11px;color:#a8d8a8;word-break:break-all}
+.cmd-item .desc{font-size:12px;color:#8b91a8;line-height:1.6}
+@media(max-width:640px){.cmd-item{grid-template-columns:1fr}}
+.skill-table{width:100%;border-collapse:collapse;margin-bottom:20px}
+.skill-table th{background:#1a1d27;font-size:11px;font-weight:700;color:#8b91a8;text-transform:uppercase;letter-spacing:.06em;padding:10px 14px;text-align:left;border-bottom:1px solid #2a2d3a}
+.skill-table td{padding:10px 14px;font-size:12px;border-bottom:1px solid #1a1d27;vertical-align:top}
+.skill-table tr:hover td{background:#1a1d27}
+.skill-table code{font-family:'SF Mono',monospace;color:#a8d8a8;font-size:11px}
+.flow-wrap{background:#1a1d27;border-radius:12px;padding:24px;border:1px solid #2a2d3a;margin-bottom:24px;overflow-x:auto}
+.flow{display:flex;align-items:center;min-width:580px}
+.flow-box{flex:1;background:#0f1117;border-radius:8px;padding:12px 8px;text-align:center;border:1px solid #2a2d3a;cursor:pointer;transition:all .2s}
+.flow-box:hover{border-color:#7c6af7;transform:translateY(-2px)}
+.flow-box .fi{font-size:18px;margin-bottom:4px}
+.flow-box .fl{font-size:10px;font-weight:600}
+.flow-box .fs{font-size:9px;color:#8b91a8;margin-top:2px}
+.flow-arr{color:#3a3f52;font-size:16px;margin:0 4px;flex-shrink:0}
+.flow-tip{background:rgba(124,106,247,.1);border:1px solid rgba(124,106,247,.2);border-radius:8px;padding:12px 16px;margin-top:14px;font-size:12px;color:#a89ef7;display:none}
+.flow-tip.on{display:block}
+.prompt-card{background:#1a1d27;border-radius:10px;padding:16px 18px;border:1px solid #2a2d3a;margin-bottom:10px}
+.pl{font-size:10px;font-weight:700;color:#8b91a8;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
+.pt{font-size:13px;color:#e8eaf0;font-style:italic}
+.pr{font-size:11px;color:#34c759;margin-top:6px}
+.vault-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-bottom:24px}
+.vault-card{background:#1a1d27;border-radius:10px;padding:18px;border:1px solid #2a2d3a;border-left:3px solid}
+.vault-card:nth-child(1){border-left-color:#7c6af7}
+.vault-card:nth-child(2){border-left-color:#34c759}
+.vault-card:nth-child(3){border-left-color:#ff9f0a}
+.vault-card:nth-child(4){border-left-color:#ff453a}
+.vault-card:nth-child(5){border-left-color:#0a84ff}
+.vault-card:nth-child(6){border-left-color:#bf5af2}
+.vault-card h3{font-size:13px;font-weight:600;margin-bottom:6px}
+.vault-card p{font-size:12px;color:#8b91a8;margin-bottom:10px}
+.evolve-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:28px}
+.evolve-card{background:#1a1d27;border-radius:10px;padding:18px;border:1px solid #2a2d3a;border-top:3px solid}
+.evolve-card:nth-child(1){border-top-color:#7c6af7}
+.evolve-card:nth-child(2){border-top-color:#34c759}
+.evolve-card:nth-child(3){border-top-color:#ff9f0a}
+.evolve-card:nth-child(4){border-top-color:#ff453a}
+.evolve-card h3{font-size:13px;font-weight:600;margin-bottom:10px}
+.evolve-card li{font-size:12px;color:#8b91a8;margin-bottom:5px;list-style:none;padding-left:12px;position:relative}
+.evolve-card li::before{content:'→';position:absolute;left:0;color:#3a3f52}
+.compound{background:#1a1d27;border-radius:12px;padding:28px;border:1px solid #2a2d3a;margin-bottom:24px;text-align:center}
+.compound-circles{display:flex;align-items:flex-end;justify-content:center;gap:12px;margin:24px 0 12px}
+.cc{display:flex;flex-direction:column;align-items:center;gap:6px}
+.cc-ring{border-radius:50%;background:rgba(124,106,247,.15);border:2px solid #7c6af7;display:flex;align-items:center;justify-content:center;color:#a89ef7;font-weight:700;font-size:11px;flex-shrink:0}
+.cc-label{font-size:10px;color:#8b91a8}
+
+/* ── MOCK SCREENS ── */
+.mock-wrap{margin:14px 0;border-radius:10px;overflow:hidden;border:1px solid #3a3f52;box-shadow:0 8px 30px rgba(0,0,0,.5)}
+.mock-bar{background:#e5e5e5;padding:8px 12px;display:flex;align-items:center;gap:10px}
+.mock-dots{display:flex;gap:4px}
+.mock-dots span{width:10px;height:10px;border-radius:50%}
+.d1{background:#ff5f57}.d2{background:#ffbd2e}.d3{background:#28c840}
+.mock-urlbar{flex:1;background:#fff;border-radius:12px;padding:4px 12px;font-size:11px;color:#555;font-family:monospace;border:1px solid #d0d0d0}
+.mock-page{background:#fff;padding:24px;color:#1a1a2e}
+.mock-page-dark{background:#1a1d27;padding:16px;color:#e8eaf0}
+.mock-title{background:#1e1e2e;padding:7px 12px;display:flex;align-items:center;justify-content:space-between;font-size:11px;color:#ccc}
+.mock-title-win{background:#0078d4;padding:7px 12px;display:flex;align-items:center;justify-content:space-between;font-size:11px;color:#fff}
+.mock-title-btns{display:flex;gap:6px}
+.mock-title-btn{width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,.3)}
+.mock-toolbar{background:#f3f3f3;padding:5px 10px;border-bottom:1px solid #ddd;font-size:11px;color:#333;display:flex;gap:10px;align-items:center}
+.mock-pathbar{background:#fff;border:1px solid #bbb;border-radius:3px;padding:3px 8px;font-size:11px;color:#333;font-family:monospace;flex:1}
+.mock-filegrid{background:#fff;padding:16px;display:flex;flex-wrap:wrap;gap:14px}
+.mock-file{display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 10px;border-radius:4px;cursor:pointer;min-width:72px}
+.mock-file:hover{background:#e8f0fe}
+.mock-file.sel{background:#cce4ff;outline:2px solid #0078d4}
+.mock-fileico{font-size:30px;line-height:1}
+.mock-filename{font-size:10px;color:#333;text-align:center;word-break:break-word;max-width:72px;line-height:1.3}
+.mock-ctx{background:#fff;border:1px solid #ccc;border-radius:4px;box-shadow:4px 4px 14px rgba(0,0,0,.25);padding:3px 0;min-width:210px;display:inline-block;font-size:12px;color:#222}
+.mock-ctx-item{padding:7px 18px;white-space:nowrap;cursor:pointer}
+.mock-ctx-item:hover{background:#e8f0fe}
+.mock-ctx-item.hi{background:#0067c0;color:#fff;font-weight:600}
+.mock-ctx-sep{border-top:1px solid #e0e0e0;margin:3px 0}
+.mock-claude-header{background:#f7f7f5;border-bottom:1px solid #e5e5e5;padding:10px 16px;display:flex;align-items:center;gap:8px}
+.mock-claude-logo{width:22px;height:22px;border-radius:5px;background:#d4a55f;display:inline-flex;align-items:center;justify-content:center;font-size:11px;color:#fff;font-weight:700}
+.mock-chat-area{background:#f7f7f5;padding:14px 16px;min-height:100px;display:flex;flex-direction:column;gap:8px}
+.mock-bubble{border-radius:12px;padding:10px 14px;font-size:12px;max-width:88%;line-height:1.5}
+.mock-bubble.user{background:#e8f0fe;color:#1a1a2e;align-self:flex-end;border-bottom-right-radius:3px}
+.mock-bubble.ai{background:#fff;color:#1a1a2e;align-self:flex-start;border-bottom-left-radius:3px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.mock-chat-input{background:#fff;border-top:1px solid #e5e5e5;padding:10px 14px;display:flex;gap:8px;align-items:center}
+.mock-input{flex:1;border:1px solid #ddd;border-radius:20px;padding:8px 14px;font-size:12px;color:#333;background:#f9f9f7}
+.mock-send{width:32px;height:32px;border-radius:50%;background:#d4a55f;border:none;color:#fff;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.mock-attach{display:flex;gap:6px;padding:8px 14px;background:#f0f0ee;border-bottom:1px solid #e5e5e5;flex-wrap:wrap}
+.mock-afile{background:#fff;border:1px solid #ddd;border-radius:6px;padding:4px 10px;font-size:11px;color:#555;display:flex;align-items:center;gap:5px}
+.mock-dialog-bg{background:rgba(0,0,0,.15);padding:20px;display:flex;justify-content:center}
+.mock-dialog{background:#fff;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,.25);padding:20px 24px;max-width:440px;width:100%;font-size:12px;color:#222}
+.mock-dialog h4{font-size:14px;font-weight:600;margin-bottom:14px;color:#1a1a2e}
+.d-input{background:#f5f5f5;border:1px solid #ccc;border-radius:3px;padding:5px 8px;font-size:11px;font-family:monospace;color:#333;width:100%;margin-bottom:10px}
+.d-btns{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}
+.d-btn{padding:6px 16px;border-radius:4px;font-size:12px;cursor:pointer;border:none}
+.d-btn.pri{background:#0078d4;color:#fff}
+.d-btn.sec{background:#f0f0f0;color:#333;border:1px solid #ccc}
+.callout{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:#ff453a;color:#fff;font-size:9px;font-weight:700;flex-shrink:0;margin-left:3px;vertical-align:middle}
+
+/* GLOSSARY */
+.glos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px;margin-bottom:24px}
+.glos-card{background:#1a1d27;border-radius:10px;padding:16px 18px;border:1px solid #2a2d3a}
+.glos-term{font-size:14px;font-weight:700;margin-bottom:3px}
+.glos-eng{font-size:10px;color:#555d7a;font-family:monospace;margin-bottom:8px}
+.glos-def{font-size:12px;color:#8b91a8;line-height:1.6}
+.glos-ex{font-size:11px;color:#7c6af7;margin-top:8px;padding-left:10px;border-left:2px solid #7c6af7;line-height:1.5}
+
+/* BIG STEPS */
+.bigstep{display:flex;gap:18px;margin-bottom:20px;background:#1a1d27;border-radius:12px;padding:20px;border:1px solid #2a2d3a}
+.bigstep-num{font-size:30px;font-weight:900;color:#7c6af7;flex-shrink:0;min-width:34px;line-height:1.1}
+.bigstep-body{flex:1}
+.bigstep-body h3{font-size:15px;font-weight:700;margin-bottom:6px}
+.bigstep-body p{font-size:12px;color:#8b91a8;margin-bottom:12px;line-height:1.6}
+
+/* PATH PICKER */
+.path-box{background:#1a1d27;border-radius:10px;border:1px solid #2a2d3a;overflow:hidden;margin-bottom:24px}
+.path-tabs{display:flex}
+.path-tab{flex:1;padding:12px;text-align:center;cursor:pointer;font-size:12px;font-weight:600;border-bottom:2px solid transparent;color:#8b91a8;transition:all .15s}
+.path-tab.pa{border-bottom-color:#7c6af7;color:#a89ef7;background:rgba(124,106,247,.08)}
+.path-tab.pb{border-bottom-color:#34c759;color:#34c759;background:rgba(52,199,89,.05)}
+.path-content{padding:20px}
+.path-content.hidden{display:none}
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <button class="nb active" onclick="show('start',this)">🏠 시작하기</button>
+  <button class="nb" onclick="show('begin',this)">🚀 첫 걸음</button>
+  <button class="nb" onclick="show('gloss',this)">📖 용어 사전</button>
+  <button class="nb" onclick="show('install',this)">⚡ 설치 가이드</button>
+  <button class="nb" onclick="show('concepts',this)">🧩 핵심 개념</button>
+  <button class="nb" onclick="show('skills',this)">🎯 스킬 호출</button>
+  <button class="nb" onclick="show('vaults',this)">📁 폴더 운영</button>
+  <button class="nb" onclick="show('commands',this)">⌨️ 명령어</button>
+  <button class="nb" onclick="show('evolve',this)">🧠 지적 진화</button>
+</div>
+
+<!-- ① 시작하기 -->
+<div class="section active" id="sec-start">
+  <div class="hero">
+    <div class="hero-badge">LLM Wiki Starter — 완전 사용 설명서</div>
+    <h1>자료를 넣을수록<br><span>더 똑똑해지는</span> AI 지식 뇌</h1>
+    <p>AI가 내 맥락을 기억하고, 자료가 쌓일수록 더 정확하게 답하는 지식의 복리 시스템입니다. 개발자가 아닌 분도 사용할 수 있습니다.</p>
+    <div class="hero-tags">
+      <span class="hero-tag">📥 자료 누적</span><span class="hero-tag">🔗 개념 연결</span>
+      <span class="hero-tag">🧠 AI 맥락 기억</span><span class="hero-tag">📈 지식 복리</span>
+    </div>
+  </div>
+
+  <div class="sh">무엇이 다른가요?</div>
+  <div class="cols2">
+    <div><div class="info info-r"><strong>❌ 기존 방식의 문제</strong><br>• AI에게 매번 맥락을 새로 설명<br>• 자료가 흩어져 연결 안 됨<br>• 좋은 답변도 다음 대화에서 사라짐<br>• 두 번째 질문이 첫 번째보다 나아지지 않음</div></div>
+    <div><div class="info info-g"><strong>✅ 이 시스템의 해결책</strong><br>• wiki/에 지식이 누적되어 맥락이 영구 보존<br>• 개념 간 연결이 자동으로 형성됨<br>• 좋은 답변이 다음 질문의 출발점이 됨<br>• 자료가 쌓일수록 AI가 더 정확하게 답함</div></div>
+  </div>
+
+  <div class="sh">누가 쓰면 좋은가요?</div>
+  <div class="cards">
+    <div class="card"><div class="card-icon">📚</div><h3>공부하는 사람</h3><p>AI, 마케팅, 투자 등 분야를 공부하며 개념을 체계적으로 쌓고 싶은 분</p></div>
+    <div class="card"><div class="card-icon">💼</div><h3>리서치하는 사람</h3><p>시장 조사, 경쟁사 분석, 트렌드 수집 등 자료가 쌓일수록 가치가 생기는 업무</p></div>
+    <div class="card"><div class="card-icon">✍️</div><h3>콘텐츠 만드는 사람</h3><p>유튜브, 블로그, SNS를 위해 아이디어와 자료를 연결하고 싶은 분</p></div>
+    <div class="card"><div class="card-icon">🛠️</div><h3>바이브 코딩하는 사람</h3><p>AI와 함께 프로덕트를 만들며 결정 사항, 코드 맥락을 잃지 않고 싶은 분</p></div>
+  </div>
+
+  <div class="info info-p">📌 <strong>처음 오셨나요?</strong> <strong>🚀 첫 걸음</strong> 탭으로 이동하세요. ZIP 파일 해제부터 첫 사용까지 시각적으로 단계별로 안내합니다. 터미널이나 코딩 지식이 전혀 없어도 됩니다.</div>
+</div>
+
+<!-- ② 첫 걸음 -->
+<div class="section" id="sec-begin">
+  <div class="sh">🚀 처음 시작하기 — 제로에서 첫 사용까지</div>
+  <div class="ss">설치 경험이 없어도 됩니다. 아래 5단계를 순서대로 따라하면 10분 안에 첫 사용까지 완료됩니다.</div>
+
+  <div class="info info-o"><strong>🧰 준비물 체크</strong><br>
+    ☐ 컴퓨터 (Windows / Mac 모두 OK)<br>
+    ☐ 인터넷 연결<br>
+    ☐ Claude 계정 (없으면 Step 1에서 무료로 만들 수 있습니다)<br>
+    ☐ wiki-llm-starter.zip 파일 (없으면 Step 2에서 다운받습니다)
+  </div>
+
+  <!-- STEP 1 -->
+  <div class="bigstep">
+    <div class="bigstep-num">1</div>
+    <div class="bigstep-body">
+      <h3>Claude 계정 만들기</h3>
+      <p>Claude는 Anthropic이 만든 AI입니다. ChatGPT와 비슷하지만 더 긴 맥락을 처리합니다. 무료 계정으로 시작할 수 있습니다.</p>
+
+      <div class="mock-wrap">
+        <div class="mock-bar"><div class="mock-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div><div class="mock-urlbar">https://claude.ai</div></div>
+        <div class="mock-page" style="display:flex;flex-direction:column;align-items:center;padding:30px 20px;gap:12px">
+          <div style="font-size:11px;background:#f0f0f0;border-radius:20px;padding:4px 12px;color:#666">Anthropic</div>
+          <div style="font-size:22px;font-weight:800;color:#1a1a2e">Claude에 오신 것을 환영합니다</div>
+          <div style="font-size:12px;color:#777">계속하려면 로그인하거나 계정을 만드세요</div>
+          <div style="width:100%;max-width:320px;display:flex;flex-direction:column;gap:8px;margin-top:8px">
+            <button style="background:#fff;border:1px solid #ddd;border-radius:8px;padding:11px;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;color:#333">
+              <span>🇬</span> Google로 계속하기 <span class="callout">1</span>
+            </button>
+            <button style="background:#fff;border:1px solid #ddd;border-radius:8px;padding:11px;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;color:#333">
+              <span>🍎</span> Apple로 계속하기
+            </button>
+            <div style="display:flex;align-items:center;gap:8px;color:#aaa;font-size:11px"><div style="flex:1;border-top:1px solid #eee"></div>또는<div style="flex:1;border-top:1px solid #eee"></div></div>
+            <input style="border:1px solid #ddd;border-radius:8px;padding:10px 14px;font-size:12px;outline:none;color:#333;background:#fafafa" placeholder="이메일 주소" readonly>
+            <button style="background:#d4a55f;color:#fff;border:none;border-radius:8px;padding:11px;font-size:13px;cursor:pointer;font-weight:600">계속하기 <span class="callout">2</span></button>
+          </div>
+          <div style="font-size:10px;color:#aaa;margin-top:4px">이미 계정이 있으신가요? <span style="color:#d4a55f">로그인</span></div>
+        </div>
+      </div>
+
+      <div style="font-size:12px;color:#8b91a8;line-height:1.9;padding:10px 0">
+        <strong style="color:#e8eaf0">① Google 계정 있으면:</strong> "Google로 계속하기" 클릭 → 구글 계정 선택 → 완료!<br>
+        <strong style="color:#e8eaf0">② 이메일로 가입:</strong> 이메일 입력 → "계속하기" 클릭 → 인증 메일 수신 → 링크 클릭 → 완료!
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="bigstep">
+    <div class="bigstep-num">2</div>
+    <div class="bigstep-body">
+      <h3>ZIP 파일 다운로드</h3>
+      <p>이 시스템의 전체 폴더 구조가 담긴 ZIP 파일을 받습니다.</p>
+
+      <div class="mock-wrap">
+        <div class="mock-bar"><div class="mock-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div><div class="mock-urlbar">github.com/배포자/wiki-llm-starter</div></div>
+        <div class="mock-page" style="padding:16px">
+          <div style="font-size:13px;font-weight:600;color:#24292f;margin-bottom:12px">📁 wiki-llm-starter</div>
+          <div style="position:relative;display:inline-block">
+            <button style="background:#2da44e;color:#fff;border:none;border-radius:6px;padding:7px 14px;font-size:12px;cursor:pointer">⬇ Code ▼ <span class="callout">1</span></button>
+            <div style="position:absolute;top:calc(100% + 4px);left:0;background:#fff;border:1px solid #d0d7de;border-radius:6px;box-shadow:0 8px 24px rgba(140,149,159,.2);padding:6px 0;min-width:180px;z-index:10">
+              <div style="padding:6px 14px;font-size:12px;color:#24292f">📋 HTTPS</div>
+              <div style="padding:6px 14px;font-size:12px;color:#24292f">📋 SSH</div>
+              <div style="border-top:1px solid #eee;margin:3px 0"></div>
+              <div style="padding:8px 14px;font-size:12px;background:#ddf4ff;color:#0969da;font-weight:600">⬇ Download ZIP <span class="callout">2</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="info info-g" style="margin-top:10px">💡 <strong>배포 링크로 ZIP을 직접 받은 경우</strong> → 이 단계 건너뛰고 Step 3으로 이동하세요.</div>
+    </div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="bigstep">
+    <div class="bigstep-num">3</div>
+    <div class="bigstep-body">
+      <h3>ZIP 압축 해제 (풀기)</h3>
+      <p>다운로드한 ZIP 파일을 원하는 위치에 풀어야 합니다. 마우스 오른쪽 버튼 클릭만 하면 됩니다.</p>
+
+      <div style="font-size:12px;color:#8b91a8;margin-bottom:8px">① 다운로드 폴더를 열면 ZIP 파일이 보입니다:</div>
+      <div class="mock-wrap">
+        <div class="mock-title-win"><span>📁 다운로드</span><div class="mock-title-btns"><div class="mock-title-btn"></div><div class="mock-title-btn"></div><div class="mock-title-btn"></div></div></div>
+        <div class="mock-toolbar">
+          <span>새로 만들기</span><span>정렬</span><span>보기</span>
+          <div class="mock-pathbar">📁 내 PC &gt; 다운로드</div>
+        </div>
+        <div class="mock-filegrid">
+          <div class="mock-file sel"><div class="mock-fileico">🗜️</div><div class="mock-filename">wiki-llm-starter.zip</div></div>
+        </div>
+      </div>
+
+      <div style="font-size:12px;color:#8b91a8;margin:14px 0 8px">② ZIP 파일에서 <strong style="color:#e8eaf0">마우스 오른쪽 버튼</strong>을 클릭합니다:</div>
+      <div class="mock-ctx">
+        <div class="mock-ctx-item">열기</div>
+        <div class="mock-ctx-item">새 탭에서 열기</div>
+        <div class="mock-ctx-sep"></div>
+        <div class="mock-ctx-item">잘라내기</div>
+        <div class="mock-ctx-item">복사</div>
+        <div class="mock-ctx-sep"></div>
+        <div class="mock-ctx-item hi">📦 모두 추출(T)... ← 클릭!</div>
+        <div class="mock-ctx-sep"></div>
+        <div class="mock-ctx-item">속성</div>
+      </div>
+
+      <div style="font-size:12px;color:#8b91a8;margin:14px 0 8px">③ 압축 해제 위치를 선택하고 <strong style="color:#e8eaf0">압축 풀기</strong>를 클릭합니다:</div>
+      <div class="mock-dialog-bg">
+        <div class="mock-dialog">
+          <h4>📦 압축(ZIP) 폴더 추출</h4>
+          <div style="font-size:11px;color:#666;margin-bottom:10px">파일을 다음 위치에 압축 풉니다:</div>
+          <div class="d-input">C:\Users\사용자이름\바탕 화면\wiki-llm-starter</div>
+          <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:#555">
+            <input type="checkbox" checked readonly style="pointer-events:none"> 완료되면 추출된 파일 표시
+          </div>
+          <div class="d-btns"><button class="d-btn sec">취소</button><button class="d-btn pri">압축 풀기 ← 클릭!</button></div>
+        </div>
+      </div>
+
+      <div class="info info-g" style="margin-top:12px">✅ <strong>완료 확인:</strong> "wiki-llm-starter" 폴더가 생기고 안에 templates/, docs/, scripts/ 등이 보이면 성공입니다.</div>
+    </div>
+  </div>
+
+  <!-- STEP 4 -->
+  <div class="bigstep">
+    <div class="bigstep-num">4</div>
+    <div class="bigstep-body">
+      <h3>가이드 파일 열기</h3>
+      <p>압축이 풀린 폴더 안 <code style="color:#a8d8a8">docs/user-guide.html</code>을 더블클릭하면 브라우저에서 이 가이드가 열립니다.</p>
+
+      <div class="mock-wrap">
+        <div class="mock-title-win"><span>📁 wiki-llm-starter</span><div class="mock-title-btns"><div class="mock-title-btn"></div><div class="mock-title-btn"></div><div class="mock-title-btn"></div></div></div>
+        <div class="mock-toolbar"><div class="mock-pathbar">📁 바탕화면 &gt; wiki-llm-starter</div></div>
+        <div class="mock-filegrid">
+          <div class="mock-file"><div class="mock-fileico">📁</div><div class="mock-filename">.agents</div></div>
+          <div class="mock-file"><div class="mock-fileico">📁</div><div class="mock-filename">.claude</div></div>
+          <div class="mock-file sel"><div class="mock-fileico">📁</div><div class="mock-filename">docs ← 열기</div></div>
+          <div class="mock-file"><div class="mock-fileico">📁</div><div class="mock-filename">scripts</div></div>
+          <div class="mock-file"><div class="mock-fileico">📁</div><div class="mock-filename">templates</div></div>
+          <div class="mock-file"><div class="mock-fileico">📄</div><div class="mock-filename">CLAUDE.md</div></div>
+          <div class="mock-file"><div class="mock-fileico">📄</div><div class="mock-filename">START_HERE .ko.md</div></div>
+        </div>
+      </div>
+      <div style="font-size:12px;color:#8b91a8;margin-top:8px">→ docs 폴더 안의 <code style="color:#a8d8a8">user-guide.html</code>을 더블클릭하면 브라우저에서 이 가이드가 열립니다.</div>
+    </div>
+  </div>
+
+  <!-- STEP 5 -->
+  <div class="bigstep">
+    <div class="bigstep-num">5</div>
+    <div class="bigstep-body">
+      <h3>첫 번째 자료 넣기</h3>
+      <p>이제 자료를 AI에게 넘겨 wiki로 만들 차례입니다. 두 가지 방법 중 하나를 선택하세요.</p>
+
+      <div class="path-box">
+        <div class="path-tabs">
+          <div class="path-tab pa" onclick="pathSelect(0,this)" id="pt0">🌐 방법 A — claude.ai 웹 (가장 쉬움)</div>
+          <div class="path-tab" onclick="pathSelect(1,this)" id="pt1">🖥️ 방법 B — Claude Code 앱 (추천)</div>
+        </div>
+        <div class="path-content" id="pc0">
+          <div class="info info-p" style="margin-bottom:14px"><strong>이런 분께 적합:</strong> 일단 먼저 써보고 싶은 분, 설치 없이 시작하고 싶은 분</div>
+          <div class="steps">
+            <div class="step"><div class="sn">A1</div><div class="step-body"><h4>claude.ai 접속 후 새 대화 시작</h4><p>브라우저에서 claude.ai를 열고 로그인 → "새 대화" 클릭</p></div></div>
+            <div class="step"><div class="sn">A2</div><div class="step-body"><h4>파일 첨부 후 요청</h4><p>📎 아이콘을 눌러 CLAUDE.md와 내 자료 텍스트 파일을 첨부하고 아래처럼 입력합니다:</p>
+              <div class="mock-wrap">
+                <div class="mock-claude-header"><div class="mock-claude-logo">C</div><span style="font-size:13px;font-weight:600;color:#333">Claude</span></div>
+                <div class="mock-attach">
+                  <div class="mock-afile">📄 CLAUDE.md</div>
+                  <div class="mock-afile">📄 내 자료.txt</div>
+                </div>
+                <div class="mock-chat-area">
+                  <div class="mock-bubble user">CLAUDE.md 규칙을 읽고, 첨부한 자료를 wiki로 정리해줘. wiki/ 구조로 페이지를 만들고 ontology도 업데이트해줘.</div>
+                </div>
+                <div class="mock-chat-input"><div class="mock-input">메시지 입력...</div><button class="mock-send">↑</button></div>
+              </div>
+            </div></div>
+            <div class="step"><div class="sn">A3</div><div class="step-body"><h4>결과 저장</h4><p>Claude가 생성한 wiki 페이지 내용을 복사해서 wiki/ 폴더 안에 .md 파일로 저장합니다.</p><div class="info info-o" style="margin-top:6px">⚠️ 웹 방식은 파일을 직접 저장해야 합니다. Claude Code 앱을 쓰면 자동 저장됩니다.</div></div></div>
+          </div>
+        </div>
+        <div class="path-content hidden" id="pc1">
+          <div class="info info-g" style="margin-bottom:14px"><strong>이런 분께 적합:</strong> 매일 쓰는 분, 자동화를 원하는 분, wiki 파일을 자동으로 저장해주길 원하는 분</div>
+          <div class="steps">
+            <div class="step"><div class="sn g">B1</div><div class="step-body"><h4>Claude Code 앱 다운로드 &amp; 설치</h4><p>claude.ai 웹사이트에서 Claude Code 데스크톱 앱을 다운로드합니다.</p></div></div>
+            <div class="step"><div class="sn g">B2</div><div class="step-body"><h4>앱 열고 프로젝트 폴더 지정</h4><p>Claude Code 앱을 열고 wiki-llm-starter 폴더를 프로젝트로 지정합니다. CLAUDE.md를 자동으로 읽어 규칙을 인식합니다.</p></div></div>
+            <div class="step"><div class="sn g">B3</div><div class="step-body"><h4>raw/ 폴더에 자료 넣기</h4><p>자료 텍스트 파일을 templates/llm-wiki/raw/ 폴더에 넣습니다.</p></div></div>
+            <div class="step"><div class="sn g">B4</div><div class="step-body"><h4>Claude에게 한 마디</h4>
+              <div class="mock-wrap">
+                <div class="mock-page-dark">
+                  <div style="font-size:11px;color:#555d7a;margin-bottom:8px">💬 Claude Code 채팅창</div>
+                  <div style="background:#2a2d3a;border-radius:8px;padding:10px 14px;font-size:13px;color:#e8eaf0">wiki-ingest로 raw 안의 새 자료를 넣어줘</div>
+                </div>
+              </div>
+              <div class="info info-g" style="margin-top:8px">✅ Claude가 자동으로 파일 읽기 → wiki 페이지 생성 → ontology 업데이트 → 저장까지 처리합니다.</div>
+            </div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="info info-p">🎉 <strong>축하합니다!</strong> 첫 자료를 위키에 넣었습니다. 이제 "<strong>wiki-query로 [질문]을 알려줘</strong>"라고 하면 내 자료 기반으로 답해줍니다.</div>
+</div>
+
+<!-- ③ 용어 사전 -->
+<div class="section" id="sec-gloss">
+  <div class="sh">📖 용어 사전</div>
+  <div class="ss">이 시스템에서 자주 나오는 단어들을 쉽게 설명합니다. 모르는 단어가 나오면 여기서 찾아보세요.</div>
+
+  <div class="glos-grid">
+    <div class="glos-card">
+      <div class="glos-term">스킬</div><div class="glos-eng">Skill</div>
+      <div class="glos-def">AI에게 "이런 방식으로 일해줘"라고 <strong>미리 정해둔 작업 지시서</strong>입니다. 레시피처럼 AI가 어떤 순서로 무엇을 해야 하는지 적혀있습니다.</div>
+      <div class="glos-ex">예: "wiki-ingest 스킬"을 부르면 → 자료 읽기 → 페이지 생성 → 검증 → 저장을 순서대로 자동 실행합니다.</div>
+    </div>
+    <div class="glos-card">
+      <div class="glos-term">플러그인</div><div class="glos-eng">Plugin</div>
+      <div class="glos-def">기본 기능에 추가로 붙이는 <strong>확장 도구</strong>입니다. 스마트폰 앱처럼, AI에게 없던 능력을 추가해줍니다.</div>
+      <div class="glos-ex">예: gbrain 플러그인을 추가하면 AI가 wiki 페이지를 의미 기반으로 검색할 수 있게 됩니다.</div>
+    </div>
+    <div class="glos-card">
+      <div class="glos-term">MCP</div><div class="glos-eng">Model Context Protocol</div>
+      <div class="glos-def">AI가 외부 도구(파일, 검색 등)를 <strong>사용할 수 있게 연결하는 통신 규격</strong>입니다. USB 포트처럼 표준화된 연결 방식입니다.</div>
+      <div class="glos-ex">예: "gbrain MCP를 연결했다" = gbrain 검색 기능을 Claude가 쓸 수 있게 됐다.</div>
+    </div>
+    <div class="glos-card">
+      <div class="glos-term">온톨로지</div><div class="glos-eng">Ontology</div>
+      <div class="glos-def">개념들의 <strong>분류 체계와 관계 규칙</strong>입니다. "이 세계에는 어떤 종류의 것들이 있고, 어떤 관계가 가능한가"를 정의합니다.</div>
+      <div class="glos-ex">예: "Tool은 Workflow에서 사용된다" — 이런 규칙들이 모인 것이 온톨로지.</div>
+    </div>
+    <div class="glos-card">
+      <div class="glos-term">T-Box</div><div class="glos-eng">Terminological Box</div>
+      <div class="glos-def">온톨로지의 <strong>설계도</strong>입니다. 어떤 클래스(종류)가 있고, 어떤 관계가 허용되는지 규칙을 정의합니다.</div>
+      <div class="glos-ex">파일: ontology/tbox.json — 여기에 규칙이 저장됩니다.</div>
+    </div>
+    <div class="glos-card">
+      <div class="glos-term">A-Box</div><div class="glos-eng">Assertional Box</div>
+      <div class="glos-def">온톨로지의 <strong>실제 데이터</strong>입니다. T-Box 규칙에 맞는 실제 사례(인스턴스)들이 저장됩니다.</div>
+      <div class="glos-ex">파일: ontology/abox.json — AI가 자료에서 발견한 개념들이 여기 쌓입니다.</div>
+    </div>
+    <div class="glos-card">
+      <div class="glos-term">Vault</div><div class="glos-eng">Vault</div>
+      <div class="glos-def">하나의 주제를 담는 <strong>폴더 묶음</strong>입니다. raw/, wiki/, ontology/를 포함한 전체 구조를 말합니다.</div>
+      <div class="glos-ex">예: "my-ai-wiki"는 AI 관련 자료만 담는 vault.</div>
+    </div>
+    <div class="glos-card">
+      <div class="glos-term">Ingest</div><div class="glos-eng">Ingest</div>
+      <div class="glos-def">원본 자료를 AI가 분석해서 <strong>wiki 지식 페이지로 변환</strong>하는 과정입니다. "소화"와 비슷한 개념입니다.</div>
+      <div class="glos-ex">raw/에 파일 넣기 → wiki-ingest 실행 → wiki/에 정리된 페이지 생성.</div>
+    </div>
+    <div class="glos-card">
+      <div class="glos-term">raw/</div><div class="glos-eng">raw directory</div>
+      <div class="glos-def"><strong>원본 자료 보관함</strong>입니다. AI가 절대 수정하지 않습니다. 유튜브 자막, 기사, 메모를 텍스트로 넣는 곳입니다.</div>
+      <div class="glos-ex">권장 파일 형식: .txt, .md</div>
+    </div>
+    <div class="glos-card">
+      <div class="glos-term">wiki/</div><div class="glos-eng">wiki directory</div>
+      <div class="glos-def">AI가 raw/ 자료를 분석해서 <strong>개념별로 정리한 지식 페이지</strong>가 저장되는 폴더입니다. Obsidian으로 열면 그래프로 볼 수 있습니다.</div>
+      <div class="glos-ex">wiki/concepts/, wiki/sources/, wiki/questions/ 등 하위 폴더로 구분됩니다.</div>
+    </div>
+    <div class="glos-card">
+      <div class="glos-term">gbrain</div><div class="glos-eng">gbrain</div>
+      <div class="glos-def">wiki 페이지를 <strong>의미 기반으로 검색</strong>하는 도구입니다. 정확한 단어가 없어도 관련 내용을 찾아줍니다. (선택 설치)</div>
+      <div class="glos-ex">"컨텍스트 윈도우"를 검색하면 그 단어가 없어도 관련 페이지를 찾아줍니다.</div>
+    </div>
+    <div class="glos-card">
+      <div class="glos-term">Claude Code</div><div class="glos-eng">Claude Code</div>
+      <div class="glos-def">컴퓨터에 설치하는 <strong>Claude 데스크톱 앱</strong>입니다. 파일을 직접 읽고 쓸 수 있어서 wiki 파일 자동 저장이 가능합니다.</div>
+      <div class="glos-ex">웹 claude.ai보다 더 많은 기능을 자동으로 처리해줍니다.</div>
+    </div>
+    <div class="glos-card">
+      <div class="glos-term">Codex</div><div class="glos-eng">Codex</div>
+      <div class="glos-def">OpenAI의 AI 코딩 도구입니다. 이 시스템의 스킬은 <strong>Codex에서도 동일하게 작동</strong>하도록 설계되어 있습니다.</div>
+      <div class="glos-ex">Codex에서는 $wiki-ingest 처럼 $ 기호로 스킬을 호출합니다.</div>
+    </div>
+    <div class="glos-card">
+      <div class="glos-term">터미널 / 검은 화면</div><div class="glos-eng">Terminal / Command Prompt</div>
+      <div class="glos-def">텍스트로 컴퓨터에 명령을 내리는 <strong>검은 창</strong>입니다. 무서워 보이지만 명령어를 복사해서 붙여넣기만 하면 됩니다.</div>
+      <div class="glos-ex">Windows: Win키 → "터미널" 검색 → 열기. gbrain 설치 시만 필요합니다.</div>
+    </div>
+    <div class="glos-card">
+      <div class="glos-term">Lint</div><div class="glos-eng">Lint / 건강검진</div>
+      <div class="glos-def">wiki의 <strong>품질 검사</strong>입니다. 끊어진 링크, 출처 없는 주장, 고아 페이지 등을 자동으로 찾아줍니다.</div>
+      <div class="glos-ex">"wiki-lint 해줘" → AI가 문제점 목록을 리포트합니다.</div>
+    </div>
+  </div>
+
+  <div class="div"></div>
+  <div style="font-size:14px;font-weight:600;margin-bottom:12px">📁 폴더 역할 한눈에 보기</div>
+  <div style="background:#1a1d27;border-radius:10px;border:1px solid #2a2d3a;overflow:hidden">
+    <table style="width:100%;border-collapse:collapse;font-size:12px">
+      <tr style="background:#0f1117"><th style="padding:10px 14px;text-align:left;color:#8b91a8;font-size:11px">폴더/파일</th><th style="padding:10px 14px;text-align:left;color:#8b91a8;font-size:11px">역할</th><th style="padding:10px 14px;text-align:left;color:#8b91a8;font-size:11px">건드려도 되나요?</th></tr>
+      <tr style="border-top:1px solid #2a2d3a"><td style="padding:10px 14px"><code style="color:#a8d8a8">raw/</code></td><td style="padding:10px 14px;color:#8b91a8">원본 자료 보관함</td><td style="padding:10px 14px"><span class="tag t-g">파일 넣기만 OK</span></td></tr>
+      <tr style="border-top:1px solid #2a2d3a"><td style="padding:10px 14px"><code style="color:#a8d8a8">wiki/</code></td><td style="padding:10px 14px;color:#8b91a8">AI 정리 지식 페이지</td><td style="padding:10px 14px"><span class="tag t-g">읽고 수정 OK</span></td></tr>
+      <tr style="border-top:1px solid #2a2d3a"><td style="padding:10px 14px"><code style="color:#a8d8a8">ontology/</code></td><td style="padding:10px 14px;color:#8b91a8">개념 분류 체계</td><td style="padding:10px 14px"><span class="tag t-o">고급 사용자만</span></td></tr>
+      <tr style="border-top:1px solid #2a2d3a"><td style="padding:10px 14px"><code style="color:#a8d8a8">CLAUDE.md</code></td><td style="padding:10px 14px;color:#8b91a8">AI 행동 규칙서</td><td style="padding:10px 14px"><span class="tag t-r">수정 시 주의</span></td></tr>
+      <tr style="border-top:1px solid #2a2d3a"><td style="padding:10px 14px"><code style="color:#a8d8a8">log.md</code></td><td style="padding:10px 14px;color:#8b91a8">운영 기록장</td><td style="padding:10px 14px"><span class="tag t-g">읽기 OK</span></td></tr>
+      <tr style="border-top:1px solid #2a2d3a"><td style="padding:10px 14px"><code style="color:#a8d8a8">scripts/</code></td><td style="padding:10px 14px;color:#8b91a8">자동 검사 도구</td><td style="padding:10px 14px"><span class="tag t-r">수정 금지</span></td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ④ 설치 가이드 -->
+<div class="section" id="sec-install">
+  <div class="sh">⚡ 고급 설치 가이드 (Claude Code + gbrain)</div>
+  <div class="ss">처음이라면 <strong>🚀 첫 걸음</strong> 탭을 먼저 완료하세요. 이 탭은 gbrain 검색 레이어까지 완전 설치하는 방법입니다.</div>
+
+  <div class="info info-p">
+    <strong>💡 터미널(검은 화면)이 무서우신가요?</strong><br>
+    아래 명령어를 <strong>복사(Ctrl+C) → 터미널에 붙여넣기(Ctrl+V) → Enter</strong>만 하면 됩니다. 직접 타이핑할 필요 없습니다!<br><br>
+    <strong>터미널 여는 법 (Windows):</strong> 키보드의 Windows키(⊞)를 누르고 "터미널" 입력 → Enter
+  </div>
+
+  <div class="env-tabs">
+    <button class="env-tab active" onclick="switchEnv('cl',this)">🤖 Claude Code</button>
+    <button class="env-tab" onclick="switchEnv('cx',this)">⚡ Codex</button>
+  </div>
+  <div class="env-panel">
+    <div class="env-content active" id="env-cl">
+      <div class="steps">
+        <div class="step"><div class="sn">1</div><div class="step-body"><h4>Bun 설치 확인</h4>
+          <div class="code"><button class="cp" onclick="cp(this)">복사</button>bun --version<br><span class="c"># 숫자(1.x.x)가 나오면 이미 설치됨 → Step 2로<br># "명령을 찾을 수 없음" 오류면 아래 실행</span></div>
+          <div class="code" style="margin-top:8px"><button class="cp" onclick="cp(this)">복사</button>powershell -c "irm bun.sh/install.ps1 | iex"</div>
+        </div></div>
+        <div class="step"><div class="sn">2</div><div class="step-body"><h4>gbrain 설치 (한 번만)</h4>
+          <div class="code"><button class="cp" onclick="cp(this)">복사</button>bun install -g github:garrytan/gbrain</div>
+        </div></div>
+        <div class="step"><div class="sn">3</div><div class="step-body"><h4>지식 저장소 초기화</h4>
+          <div class="code"><button class="cp" onclick="cp(this)">복사</button>gbrain init --pglite</div>
+        </div></div>
+        <div class="step"><div class="sn">4</div><div class="step-body"><h4>Claude Code에 gbrain 연결</h4>
+          <div class="code"><button class="cp" onclick="cp(this)">복사</button>claude mcp add gbrain -- gbrain serve</div>
+        </div></div>
+        <div class="step"><div class="sn">5</div><div class="step-body"><h4>wiki 인덱싱 (최초 1회)</h4>
+          <div class="code"><button class="cp" onclick="cp(this)">복사</button>gbrain import templates/llm-wiki/wiki/</div>
+        </div></div>
+        <div class="step"><div class="sn g">✓</div><div class="step-body"><h4>완료! 첫 ingest 실행</h4>
+          <div class="code">wiki-ingest로 raw 안의 자료를 넣어줘</div>
+        </div></div>
+      </div>
+    </div>
+    <div class="env-content" id="env-cx">
+      <div class="steps">
+        <div class="step"><div class="sn o">1</div><div class="step-body"><h4>gbrain CLI 설치</h4>
+          <div class="code"><button class="cp" onclick="cp(this)">복사</button>bun install -g github:garrytan/gbrain<br>gbrain init --pglite</div>
+        </div></div>
+        <div class="step"><div class="sn o">2</div><div class="step-body"><h4>Codex에서 스킬 호출</h4>
+          <div class="code"><span class="c"># Codex에서는 $ 기호로 스킬 호출</span><br>$wiki-ingest<br><span class="c"># 또는 자연어로: "wiki-ingest 실행해줘"</span></div>
+        </div></div>
+      </div>
+      <div class="info info-o">Codex는 MCP 서버 대신 gbrain CLI를 직접 사용합니다. 스킬 내부에서 자동 실행됩니다.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ⑤ 핵심 개념 -->
+<div class="section" id="sec-concepts">
+  <div class="sh">🧩 핵심 개념</div>
+  <div class="ss">이 시스템을 이루는 네 개의 레이어와 그 역할을 이해합니다.</div>
+  <div class="cards">
+    <div class="card"><div class="card-icon">📥</div><h3>raw/ — 원본 자료 창고</h3><p>모든 원본이 들어오는 곳. AI가 읽기만 하고 절대 수정하지 않습니다. 유튜브 자막, PDF 발췌, 메모를 텍스트로 넣으면 됩니다.</p></div>
+    <div class="card"><div class="card-icon">📚</div><h3>wiki/ — AI 정리 지식 페이지</h3><p>AI가 raw/ 자료를 읽고 개념별로 정리한 Markdown 페이지. 출처, 연결 링크, 핵심 주장이 구조적으로 정리됩니다.</p></div>
+    <div class="card"><div class="card-icon">🗺️</div><h3>ontology/ — 개념 지도</h3><p>tbox.json: 어떤 종류의 개념이 있는지 규칙. abox.json: 실제 자료에서 발견된 사례들. 잘못된 관계는 오류로 잡힙니다.</p></div>
+    <div class="card"><div class="card-icon">🔍</div><h3>gbrain — 의미 검색 엔진</h3><p>wiki/ 페이지를 벡터 + 키워드 하이브리드 검색으로 인덱싱합니다. 정확한 단어가 없어도 관련 페이지를 찾아줍니다.</p></div>
+  </div>
+  <div class="flow-wrap">
+    <div style="font-size:11px;color:#8b91a8;margin-bottom:16px;font-weight:600;text-transform:uppercase;letter-spacing:.06em">자료가 답변이 되는 전체 흐름 — 각 단계 클릭 시 설명</div>
+    <div class="flow">
+      <div class="flow-box" onclick="tip('t1')"><div class="fi">📄</div><div class="fl">원본 자료</div><div class="fs">raw/</div></div>
+      <div class="flow-arr">→</div>
+      <div class="flow-box" onclick="tip('t2')"><div class="fi">🤖</div><div class="fl">AI 분석</div><div class="fs">wiki-ingest</div></div>
+      <div class="flow-arr">→</div>
+      <div class="flow-box" onclick="tip('t3')"><div class="fi">📚</div><div class="fl">지식 페이지</div><div class="fs">wiki/</div></div>
+      <div class="flow-arr">→</div>
+      <div class="flow-box" onclick="tip('t4')"><div class="fi">✅</div><div class="fl">구조 검증</div><div class="fs">ontology</div></div>
+      <div class="flow-arr">→</div>
+      <div class="flow-box" onclick="tip('t5')"><div class="fi">🔍</div><div class="fl">검색 인덱스</div><div class="fs">gbrain</div></div>
+      <div class="flow-arr">→</div>
+      <div class="flow-box" onclick="tip('t6')"><div class="fi">💡</div><div class="fl">정확한 답변</div><div class="fs">wiki-query</div></div>
+    </div>
+    <div class="flow-tip" id="t1">📄 <strong>raw/</strong> — 유튜브 자막, 기사, 메모를 텍스트 파일로 넣습니다. AI가 절대 수정하지 않는 원본 창고입니다.</div>
+    <div class="flow-tip" id="t2">🤖 <strong>wiki-ingest</strong> — AI가 자료를 읽고 핵심 개념, 주장, 관계를 추출해 wiki 페이지를 만듭니다.</div>
+    <div class="flow-tip" id="t3">📚 <strong>wiki/</strong> — 개념별로 정리된 Markdown 페이지들. 서로 [[링크]]로 연결되어 있습니다.</div>
+    <div class="flow-tip" id="t4">✅ <strong>온톨로지 검증</strong> — Python 스크립트가 tbox 규칙대로 abox의 관계가 맞는지 자동 확인합니다.</div>
+    <div class="flow-tip" id="t5">🔍 <strong>gbrain</strong> — 검증된 wiki 페이지를 의미 기반으로 인덱싱합니다. 이후 질문 시 관련 페이지 경로를 즉시 반환합니다.</div>
+    <div class="flow-tip" id="t6">💡 <strong>wiki-query</strong> — gbrain이 관련 페이지 경로를 찾아주면, AI가 그 페이지들만 읽고 답합니다.</div>
+  </div>
+</div>
+
+<!-- ⑥ 스킬 호출 -->
+<div class="section" id="sec-skills">
+  <div class="sh">🎯 스킬 호출 방법</div>
+  <div class="ss">스킬은 AI에게 미리 정의해 둔 작업 명세서입니다. 이름을 부르면 AI가 그 절차를 따라 자동 실행합니다.</div>
+  <div class="info info-p"><strong>스킬 파일 위치</strong><br>• Claude Code: <code>.agents/skills/[스킬이름]/SKILL.md</code><br>• Codex: <code>.codex/skills/[스킬이름]/SKILL.md</code> (내용 동일)<br><br>SKILL.md 파일을 수정하면 AI의 행동이 바뀝니다.</div>
+  <table class="skill-table">
+    <thead><tr><th>스킬</th><th>Claude Code 호출</th><th>Codex 호출</th><th>하는 일</th></tr></thead>
+    <tbody>
+      <tr><td><code>wiki-ingest</code></td><td><code>wiki-ingest로 raw 자료를 넣어줘</code></td><td><code>$wiki-ingest</code></td><td>raw/ → wiki 페이지 + ontology + gbrain 동기화 <span class="tag t-p">핵심</span></td></tr>
+      <tr><td><code>wiki-query</code></td><td><code>wiki-query로 [질문]에 답해줘</code></td><td><code>$wiki-query</code></td><td>gbrain 검색 후 wiki 기반 답변</td></tr>
+      <tr><td><code>wiki-lint</code></td><td><code>wiki-lint로 건강검진 해줘</code></td><td><code>$wiki-lint</code></td><td>끊어진 링크, 출처 없는 주장, 고아 페이지 탐지</td></tr>
+      <tr><td><code>ontology-check</code></td><td><code>ontology-check로 구조 검사해줘</code></td><td><code>$ontology-check</code></td><td>T-Box/A-Box 일관성 검사</td></tr>
+      <tr><td><code>vibe-wiki-session</code></td><td><code>vibe-wiki-session으로 오늘 작업 시작해줘</code></td><td><code>$vibe-wiki-session</code></td><td>세션 시작 시 맥락 불러오기 + 종료 시 wiki 저장</td></tr>
+      <tr><td><code>wiki-release</code></td><td><code>wiki-release로 배포 ZIP 만들어줘</code></td><td><code>$wiki-release</code></td><td>배포용 ZIP 패키징 및 검증</td></tr>
+    </tbody>
+  </table>
+  <div class="div"></div>
+  <div style="font-size:15px;font-weight:600;margin-bottom:14px">Claude Code vs Codex 호출 차이</div>
+  <div class="cols2">
+    <div><div class="card"><div class="card-icon">🤖</div><h3>Claude Code (자연어)</h3><p>그냥 말하듯이 입력합니다.</p><div class="code" style="margin-top:10px"><span class="c"># 모두 같은 뜻</span><br>wiki-ingest로 raw 자료 넣어줘<br>인제스트 해줘<br>자료 정리해줘</div></div></div>
+    <div><div class="card"><div class="card-icon">⚡</div><h3>Codex ($ 접두사)</h3><p>스킬 이름 앞에 $를 붙입니다.</p><div class="code" style="margin-top:10px"><span class="c"># Codex 방식</span><br>$wiki-ingest<br>$wiki-query<br>$wiki-lint</div></div></div>
+  </div>
+</div>
+
+<!-- ⑦ 폴더 운영 -->
+<div class="section" id="sec-vaults">
+  <div class="sh">📁 폴더(Vault) 운영 방법</div>
+  <div class="ss">하나의 주제 = 하나의 vault 폴더. 주제별로 분리하면 각 분야의 지식이 더 깊어집니다.</div>
+  <div class="info info-p"><strong>기본 원칙</strong><br>templates/llm-wiki 폴더를 복사해서 새 이름으로 만들면 됩니다. raw/와 wiki/만 비어있게 됩니다.</div>
+  <div style="font-size:15px;font-weight:600;margin-bottom:12px">주제별 Vault 예시</div>
+  <div class="vault-grid">
+    <div class="vault-card"><h3>🤖 my-ai-wiki</h3><p>AI, LLM, 프롬프트 엔지니어링 공부</p><div class="code" style="font-size:11px">raw/<br>  논문 요약.txt<br>  유튜브-karpathy.txt</div></div>
+    <div class="vault-card"><h3>💼 my-business-wiki</h3><p>시장 조사, 경쟁사, 트렌드</p><div class="code" style="font-size:11px">raw/<br>  시장조사-보고서.txt<br>  경쟁사-분석.txt</div></div>
+    <div class="vault-card"><h3>📖 my-reading-wiki</h3><p>독서 기록, 아이디어 연결</p><div class="code" style="font-size:11px">raw/<br>  책-제로투원-발췌.txt<br>  메모.txt</div></div>
+    <div class="vault-card"><h3>🎬 my-content-wiki</h3><p>콘텐츠 소재, 스크립트 아이디어</p><div class="code" style="font-size:11px">raw/<br>  아이디어-모음.txt<br>  소재-분석.txt</div></div>
+    <div class="vault-card"><h3>🛠️ my-project-wiki</h3><p>특정 프로젝트의 결정, 맥락</p><div class="code" style="font-size:11px">raw/<br>  기획서-v1.txt<br>  회의-메모.txt</div></div>
+    <div class="vault-card"><h3>📊 my-invest-wiki</h3><p>투자 철학, 종목 분석</p><div class="code" style="font-size:11px">raw/<br>  워렌버핏-주주서한.txt<br>  거시경제-노트.txt</div></div>
+  </div>
+  <div style="font-size:15px;font-weight:600;margin-bottom:12px">새 Vault 만드는 법</div>
+  <div class="steps">
+    <div class="step"><div class="sn g">1</div><div class="step-body"><h4>templates/llm-wiki 폴더 복사</h4><p>파일 탐색기에서 마우스 우클릭 → 복사 → 같은 위치에 붙여넣기 → 이름 변경</p><div class="code">templates/llm-wiki → (복사) → my-ai-wiki</div></div></div>
+    <div class="step"><div class="sn g">2</div><div class="step-body"><h4>raw/에 첫 자료 넣기 + 인덱싱</h4><div class="code"><button class="cp" onclick="cp(this)">복사</button>gbrain import my-ai-wiki/wiki/</div></div></div>
+    <div class="step"><div class="sn g">3</div><div class="step-body"><h4>AI에게 요청</h4><div class="code">my-ai-wiki/CLAUDE.md 규칙으로 raw/ 자료를 ingest 해줘</div></div></div>
+  </div>
+  <div class="div"></div>
+  <div style="font-size:15px;font-weight:600;margin-bottom:10px">여러 Vault 교차 검색</div>
+  <div class="info info-o">gbrain에 여러 vault를 함께 인덱싱하면 두 분야의 연결점을 찾아줍니다.</div>
+  <div class="code"><button class="cp" onclick="cp(this)">복사</button>gbrain import my-ai-wiki/wiki/<br>gbrain import my-business-wiki/wiki/<br><span class="c"># 이후 "AI와 내 사업이 연결되는 지점을 찾아줘" 질문 가능</span></div>
+</div>
+
+<!-- ⑧ 명령어 -->
+<div class="section" id="sec-commands">
+  <div class="sh">⌨️ 전체 명령어 모음</div>
+  <div class="ss">AI에게 하는 말(자연어)과 터미널 명령어를 모두 정리했습니다.</div>
+  <div class="cmd-sec"><h3>📥 자료 넣기</h3><div class="cmd-list">
+    <div class="cmd-item"><div><div class="tag t-p">Claude Code</div><br><code>wiki-ingest로 raw 자료를 넣어줘</code></div><div class="desc">raw/ 폴더의 미처리 파일을 wiki로 변환합니다. 온톨로지 업데이트 + gbrain 동기화 자동 포함.</div></div>
+    <div class="cmd-item"><div><div class="tag t-b">Codex</div><br><code>$wiki-ingest</code></div><div class="desc">Codex 환경에서 wiki-ingest 스킬을 실행합니다.</div></div>
+    <div class="cmd-item"><div><div class="tag t-p">Claude Code</div><br><code>이 자료를 위키에 넣어줘</code></div><div class="desc">텍스트를 채팅에 직접 붙여넣고 이 말을 하면 됩니다.</div></div>
+  </div></div>
+  <div class="cmd-sec"><h3>🔍 질문하기</h3><div class="cmd-list">
+    <div class="cmd-item"><div><div class="tag t-g">Claude Code</div><br><code>wiki-query로 [질문]에 답해줘</code></div><div class="desc">gbrain으로 관련 페이지를 먼저 찾고, AI가 wiki만 기반으로 답합니다.</div></div>
+    <div class="cmd-item"><div><div class="tag t-g">Claude Code</div><br><code>내 위키에서 찾아봐</code></div><div class="desc">AI 일반 지식이 아닌, 내가 넣은 자료만 기반으로 답합니다.</div></div>
+    <div class="cmd-item"><div><div class="tag t-g">Claude Code</div><br><code>[개념A]와 [개념B]의 연결점을 찾아줘</code></div><div class="desc">두 개념이 공유하는 소스 페이지와 공통 관계를 찾아줍니다.</div></div>
+  </div></div>
+  <div class="cmd-sec"><h3>🏥 건강검진</h3><div class="cmd-list">
+    <div class="cmd-item"><div><div class="tag t-r">Claude Code</div><br><code>wiki-lint로 위키 건강검진 해줘</code></div><div class="desc">끊어진 링크, 출처 없는 주장, 고아 페이지 확인. 주 1회 권장.</div></div>
+    <div class="cmd-item"><div><div class="tag t-r">Claude Code</div><br><code>ontology-check로 개념 구조 검사해줘</code></div><div class="desc">T-Box/A-Box 일관성, domain/range 위반을 확인합니다.</div></div>
+  </div></div>
+  <div class="cmd-sec"><h3>⚙️ gbrain CLI (터미널)</h3><div class="cmd-list">
+    <div class="cmd-item"><div><div class="tag t-b">터미널</div><br><code>gbrain import wiki/</code></div><div class="desc">wiki/ 페이지를 gbrain에 동기화합니다. AI가 자동 실행하지만 수동으로도 가능합니다.</div></div>
+    <div class="cmd-item"><div><div class="tag t-b">터미널</div><br><code>gbrain search "검색어"</code></div><div class="desc">터미널에서 직접 wiki 페이지를 검색합니다.</div></div>
+  </div></div>
+</div>
+
+<!-- ⑨ 지적 진화 -->
+<div class="section" id="sec-evolve">
+  <div class="sh">🧠 지적 진화 — 지식의 복리 시스템</div>
+  <div class="ss">이 시스템의 진짜 목적은 단순한 자료 정리가 아닙니다. AI가 내 생각의 지도이자 나침반이 되는 것입니다.</div>
+
+  <div class="compound">
+    <div style="font-size:13px;font-weight:600;margin-bottom:4px">지식의 복리 효과</div>
+    <div style="font-size:12px;color:#8b91a8">자료를 쌓을수록 AI가 더 정확하게 답하고, 더 깊은 연결을 찾아냅니다</div>
+    <div class="compound-circles">
+      <div class="cc"><div class="cc-ring" style="width:48px;height:48px;font-size:10px">1주</div><div class="cc-label">기초</div></div>
+      <div style="color:#3a3f52;font-size:14px;margin-bottom:20px">→</div>
+      <div class="cc"><div class="cc-ring" style="width:64px;height:64px;font-size:10px">1개월</div><div class="cc-label">연결</div></div>
+      <div style="color:#3a3f52;font-size:14px;margin-bottom:20px">→</div>
+      <div class="cc"><div class="cc-ring" style="width:88px;height:88px;font-size:11px">3개월</div><div class="cc-label">합성</div></div>
+      <div style="color:#3a3f52;font-size:14px;margin-bottom:20px">→</div>
+      <div class="cc"><div class="cc-ring" style="width:120px;height:120px;font-size:12px">6개월+</div><div class="cc-label">진화</div></div>
+    </div>
+    <div style="font-size:12px;color:#8b91a8">시간이 지날수록 wiki의 페이지 수와 연결 고리가 증가합니다.<br>AI는 이 맥락 지도를 바탕으로 점점 더 당신의 관점에서 답합니다.</div>
+  </div>
+
+  <div class="evolve-grid">
+    <div class="evolve-card"><h3>1단계 · 누적</h3><ul><li>관심 분야 자료를 꾸준히 raw/에 넣기</li><li>wiki-ingest로 매번 정리하기</li><li>log.md에 미해결 질문 남기기</li><li>좋은 답변을 questions/에 저장하기</li></ul></div>
+    <div class="evolve-card"><h3>2단계 · 연결</h3><ul><li>반복 등장하는 개념 찾기</li><li>ontology에 새 관계 유형 추가</li><li>wiki-query로 개념 간 연결 확인</li><li>모순 주장을 contradiction으로 표시</li></ul></div>
+    <div class="evolve-card"><h3>3단계 · 합성</h3><ul><li>"A와 B의 공통점은?" 질문하기</li><li>여러 vault를 gbrain에 함께 인덱싱</li><li>교차점에서 새 아이디어 포착</li><li>합성 통찰을 새 위키 페이지로 저장</li></ul></div>
+    <div class="evolve-card"><h3>4단계 · 진화</h3><ul><li>반복 패턴을 schema/에 원칙으로 저장</li><li>검증된 프레임워크를 ontology에 추가</li><li>AI가 내 사고방식을 학습하기 시작</li><li>나만의 지적 시스템 완성</li></ul></div>
+  </div>
+
+  <div class="div"></div>
+  <div style="font-size:15px;font-weight:600;margin-bottom:14px">지적 진화를 위한 고급 질문들</div>
+  <div class="prompt-card"><div class="pl">🔄 패턴 발견</div><div class="pt">"지금까지 넣은 자료들에서 3번 이상 반복 등장하는 개념이나 패턴은 뭐야?"</div><div class="pr">→ 온톨로지의 mentions 관계 빈도를 분석해 핵심 패턴을 찾아줍니다</div></div>
+  <div class="prompt-card"><div class="pl">🌉 분야 간 다리</div><div class="pt">"[분야A] wiki와 [분야B] wiki를 함께 보면 어떤 공통 원리가 보여?"</div><div class="pr">→ 두 vault를 교차 검색해 예상치 못한 연결 고리를 발견합니다</div></div>
+  <div class="prompt-card"><div class="pl">📈 성장 추적</div><div class="pt">"log.md를 보고 지난 한 달 동안 내 이해가 어떻게 발전했는지 요약해줘"</div><div class="pr">→ 시간순 ingest 기록을 분석해 지식 성장 궤적을 보여줍니다</div></div>
+  <div class="prompt-card"><div class="pl">🎯 다음 공부 방향</div><div class="pt">"현재 내 wiki의 빈 구멍(지식 갭)을 찾고, 다음에 공부해야 할 주제를 추천해줘"</div><div class="pr">→ wiki/questions/의 미해결 질문과 끊어진 링크를 분석해 우선순위를 제안합니다</div></div>
+
+  <div class="div"></div>
+  <div class="info info-g">
+    <strong>🗺️ AI가 나의 맥락 지도이자 나침반이 된다는 것</strong><br><br>
+    wiki/는 "AI에게 나를 설명하는 문서"입니다. 내가 어떤 개념을 중요하게 생각하는지, 어떤 자료를 신뢰하는지, 어떤 문제를 해결하려 하는지가 온톨로지와 위키 페이지에 담깁니다.<br><br>
+    AI는 매번 이 지도를 보고 내 맥락에 맞는 답을 찾습니다. "지금 이 결정에서 내 원칙에 맞는 방향은?"을 물으면, 내가 과거에 저장한 결정 사항과 가치관을 바탕으로 나에게 맞는 방향을 제시합니다.
+  </div>
+</div>
+
+<script>
+function show(id,btn){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
+  document.getElementById('sec-'+id).classList.add('active');
+  btn.classList.add('active');
+}
+function tip(id){
+  const t=document.getElementById(id);
+  const on=t.classList.contains('on');
+  document.querySelectorAll('.flow-tip').forEach(x=>x.classList.remove('on'));
+  if(!on)t.classList.add('on');
+}
+function switchEnv(id,btn){
+  document.querySelectorAll('.env-content').forEach(e=>e.classList.remove('active'));
+  document.querySelectorAll('.env-tab').forEach(b=>b.classList.remove('active'));
+  document.getElementById('env-'+id).classList.add('active');
+  btn.classList.add('active');
+}
+function pathSelect(idx,el){
+  document.querySelectorAll('.path-content').forEach(p=>p.classList.add('hidden'));
+  document.querySelectorAll('.path-tab').forEach(t=>t.classList.remove('pa','pb'));
+  document.getElementById('pc'+idx).classList.remove('hidden');
+  el.classList.add(idx===0?'pa':'pb');
+}
+function cp(btn){
+  const block=btn.parentElement;
+  const lines=[];
+  block.childNodes.forEach(n=>{
+    if(n.nodeType===3)lines.push(n.textContent);
+    else if(n.tagName==='BR')lines.push('\n');
+    else if(!n.classList||(!n.classList.contains('cp')&&!n.classList.contains('c')&&!n.classList.contains('k')))
+      lines.push(n.textContent);
+  });
+  const text=lines.join('').replace(/복사|✓/g,'').trim();
+  navigator.clipboard.writeText(text).then(()=>{
+    btn.textContent='✓';setTimeout(()=>btn.textContent='복사',1500);
+  }).catch(()=>{btn.textContent='✓';setTimeout(()=>btn.textContent='복사',1500);});
+}
+</script>
+</body>
+</html>

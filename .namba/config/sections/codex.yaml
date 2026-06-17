@@ -1,0 +1,16 @@
+agent_mode: single
+status_line_preset: namba
+repo_skills_path: .agents/skills
+repo_agents_path: .codex/agents
+# Optional: per-run Codex overrides resolved by `namba run`.
+# model:
+# profile:
+web_search: false
+add_dirs:
+session_mode: stateful
+repair_attempts: 1
+required_env:
+requires_network: false
+# Optional: comma-separated Namba-managed MCP presets to render into `.codex/config.toml`.
+# Supported values: context7, playwright, sequential-thinking
+# default_mcp_servers:

@@ -1,0 +1,14 @@
+---
+name: namba-pr
+description: Command-style entry point for preparing the current branch for GitHub review.
+---
+
+Use this skill when the user explicitly says `$namba-pr`, `namba pr`, or asks to hand off the current branch for review.
+
+Behavior:
+- Use the configured PR base branch, PR language, and Codex review marker from `.namba/config/sections/git-strategy.yaml`.
+- Run `namba sync` and validation by default before creating review artifacts.
+- Include the latest SPEC review-readiness artifact in the PR summary/checklist when `.namba/specs/<SPEC>/reviews/readiness.md` exists.
+- Inspect current PR check status before review handoff; for failing GitHub Actions checks, capture run URLs and bounded GitHub Actions failure snippets, and report external checks by status and details URL only.
+- Commit and push the current work branch, create or reuse the GitHub PR, and ensure the configured Codex review marker exists exactly once.
+- Collaboration defaults: PRs target `main`, PR content is written in English, and `@codex review` is the review marker.

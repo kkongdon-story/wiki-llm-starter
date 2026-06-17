@@ -1,0 +1,15 @@
+# Node
+node_modules/
+
+# OMC 세션 상태 (개인 런타임 데이터)
+.omc/state/
+.omc/logs/
+
+# Namba 로그
+.namba/logs/
+
+# 임시 파일
+*.tmp
+*.log
+.DS_Store
+Thumbs.db

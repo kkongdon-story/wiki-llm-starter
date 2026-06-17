@@ -1,0 +1,25 @@
+{
+  "rules": [
+    {
+      "id": "derived_page_mentions_source_concept",
+      "description": "If a wiki page is derived from a source and the source mentions a concept, infer that the page also mentions the concept.",
+      "if": [
+        {
+          "subject": "?page",
+          "relation": "derived_from",
+          "object": "?source"
+        },
+        {
+          "subject": "?source",
+          "relation": "mentions",
+          "object": "?concept"
+        }
+      ],
+      "then": {
+        "subject": "?page",
+        "relation": "mentions",
+        "object": "?concept"
+      }
+    }
+  ]
+}

@@ -1,0 +1,106 @@
+{
+  "classes": [
+    {
+      "id": "Thing",
+      "label": "사물"
+    },
+    {
+      "id": "Source",
+      "label": "원본 자료",
+      "subClassOf": ["Thing"],
+      "disjointWith": ["WikiPage"]
+    },
+    {
+      "id": "WikiPage",
+      "label": "위키 페이지",
+      "subClassOf": ["Thing"],
+      "disjointWith": ["Source"]
+    },
+    {
+      "id": "Concept",
+      "label": "개념",
+      "subClassOf": ["Thing"]
+    },
+    {
+      "id": "Entity",
+      "label": "개체",
+      "subClassOf": ["Thing"]
+    },
+    {
+      "id": "Tool",
+      "label": "도구",
+      "subClassOf": ["Entity"]
+    },
+    {
+      "id": "Workflow",
+      "label": "업무 흐름",
+      "subClassOf": ["Thing"]
+    },
+    {
+      "id": "Claim",
+      "label": "주장",
+      "subClassOf": ["Thing"]
+    },
+    {
+      "id": "Question",
+      "label": "질문",
+      "subClassOf": ["Thing"]
+    },
+    {
+      "id": "Answer",
+      "label": "답변",
+      "subClassOf": ["Thing"]
+    }
+  ],
+  "relations": [
+    {
+      "id": "derived_from",
+      "label": "출처에서 파생됨",
+      "domain": "WikiPage",
+      "range": "Source",
+      "inverseOf": "has_derived_page"
+    },
+    {
+      "id": "has_derived_page",
+      "label": "파생 페이지를 가짐",
+      "domain": "Source",
+      "range": "WikiPage"
+    },
+    {
+      "id": "mentions",
+      "label": "언급함",
+      "domain": "Thing",
+      "range": "Concept"
+    },
+    {
+      "id": "related_to",
+      "label": "관련됨",
+      "domain": "Thing",
+      "range": "Thing"
+    },
+    {
+      "id": "uses_tool",
+      "label": "도구를 사용함",
+      "domain": "Workflow",
+      "range": "Tool"
+    },
+    {
+      "id": "supports_claim",
+      "label": "주장을 뒷받침함",
+      "domain": "Source",
+      "range": "Claim"
+    },
+    {
+      "id": "contradicts",
+      "label": "모순됨",
+      "domain": "Claim",
+      "range": "Claim"
+    },
+    {
+      "id": "answers",
+      "label": "답함",
+      "domain": "Answer",
+      "range": "Question"
+    }
+  ]
+}
