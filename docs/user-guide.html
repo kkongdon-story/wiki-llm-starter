@@ -198,31 +198,49 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 
 <!-- ① 시작하기 -->
 <div class="section active" id="sec-start">
-  <div class="hero">
-    <div class="hero-badge">LLM Wiki Starter — 완전 사용 설명서</div>
-    <h1>자료를 넣을수록<br><span>더 똑똑해지는</span> AI 지식 뇌</h1>
-    <p>AI가 내 맥락을 기억하고, 자료가 쌓일수록 더 정확하게 답하는 지식의 복리 시스템입니다. 개발자가 아닌 분도 사용할 수 있습니다.</p>
-    <div class="hero-tags">
-      <span class="hero-tag">📥 자료 누적</span><span class="hero-tag">🔗 개념 연결</span>
-      <span class="hero-tag">🧠 AI 맥락 기억</span><span class="hero-tag">📈 지식 복리</span>
+
+  <div style="border-left:4px solid #ff453a;padding:20px 22px;background:rgba(255,69,58,.06);border-radius:0 12px 12px 0;margin-bottom:16px">
+    <div style="font-size:10px;font-weight:700;color:#ff453a;letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px">문제</div>
+    <div style="font-size:22px;font-weight:800;line-height:1.45;color:#e8eaf0">AI 답변은 좋은데,<br>대화가 끝나면 사라진다.</div>
+    <div style="font-size:13px;color:#8b91a8;margin-top:12px;line-height:1.75">지식은 쌓이면서 연결될 때 진짜 가치가 생깁니다.<br>그런데 AI는 매번 처음부터 시작합니다.</div>
+  </div>
+
+  <div style="border-left:4px solid #34c759;padding:20px 22px;background:rgba(52,199,89,.06);border-radius:0 12px 12px 0;margin-bottom:28px">
+    <div style="font-size:10px;font-weight:700;color:#34c759;letter-spacing:.12em;text-transform:uppercase;margin-bottom:16px">이 시스템을 쓰면 얻는 것</div>
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div style="display:flex;gap:12px;align-items:flex-start;line-height:1.6">
+        <span style="color:#34c759;flex-shrink:0;font-weight:700;margin-top:1px">✓</span>
+        <span><strong style="color:#e8eaf0;font-size:13px">자료가 쌓일수록 AI가 더 정확하게 답한다</strong><br><span style="color:#8b91a8;font-size:12px">오늘 저장한 자료가 3개월 뒤 답변의 토대가 됩니다</span></span>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;line-height:1.6">
+        <span style="color:#34c759;flex-shrink:0;font-weight:700;margin-top:1px">✓</span>
+        <span><strong style="color:#e8eaf0;font-size:13px">좋은 답변이 사라지지 않는다</strong><br><span style="color:#8b91a8;font-size:12px">wiki 페이지로 누적되어 다음 질문의 출발점이 됩니다</span></span>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;line-height:1.6">
+        <span style="color:#34c759;flex-shrink:0;font-weight:700;margin-top:1px">✓</span>
+        <span><strong style="color:#e8eaf0;font-size:13px">흩어진 자료가 연결된다</strong><br><span style="color:#8b91a8;font-size:12px">개념들이 서로 이어지며 예상 못 한 인사이트가 나옵니다</span></span>
+      </div>
+      <div style="display:flex;gap:12px;align-items:flex-start;line-height:1.6">
+        <span style="color:#34c759;flex-shrink:0;font-weight:700;margin-top:1px">✓</span>
+        <span><strong style="color:#e8eaf0;font-size:13px">코딩 없이 자연어로 쓴다</strong><br><span style="color:#8b91a8;font-size:12px">Claude Code, Codex에서 말하듯이 입력하면 됩니다</span></span>
+      </div>
     </div>
   </div>
 
-  <div class="sh">무엇이 다른가요?</div>
-  <div class="cols2">
-    <div><div class="info info-r"><strong>❌ 기존 방식의 문제</strong><br>• AI에게 매번 맥락을 새로 설명<br>• 자료가 흩어져 연결 안 됨<br>• 좋은 답변도 다음 대화에서 사라짐<br>• 두 번째 질문이 첫 번째보다 나아지지 않음</div></div>
-    <div><div class="info info-g"><strong>✅ 이 시스템의 해결책</strong><br>• wiki/에 지식이 누적되어 맥락이 영구 보존<br>• 개념 간 연결이 자동으로 형성됨<br>• 좋은 답변이 다음 질문의 출발점이 됨<br>• 자료가 쌓일수록 AI가 더 정확하게 답함</div></div>
+  <div style="font-size:10px;font-weight:700;color:#555d7a;text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px">작동 방식</div>
+  <div class="flow-wrap">
+    <div class="flow">
+      <div class="flow-box"><div class="fi">📄</div><div class="fl">raw/</div><div class="fs">자료 넣기</div></div>
+      <div class="flow-arr">→</div>
+      <div class="flow-box"><div class="fi">🤖</div><div class="fl">AI 분석</div><div class="fs">wiki-ingest</div></div>
+      <div class="flow-arr">→</div>
+      <div class="flow-box"><div class="fi">📚</div><div class="fl">wiki/</div><div class="fs">지식 누적</div></div>
+      <div class="flow-arr">→</div>
+      <div class="flow-box" style="border-color:#34c759"><div class="fi">💡</div><div class="fl" style="color:#34c759">정확한 답변</div><div class="fs">내 자료 기반</div></div>
+    </div>
   </div>
 
-  <div class="sh">누가 쓰면 좋은가요?</div>
-  <div class="cards">
-    <div class="card"><div class="card-icon">📚</div><h3>공부하는 사람</h3><p>AI, 마케팅, 투자 등 분야를 공부하며 개념을 체계적으로 쌓고 싶은 분</p></div>
-    <div class="card"><div class="card-icon">💼</div><h3>리서치하는 사람</h3><p>시장 조사, 경쟁사 분석, 트렌드 수집 등 자료가 쌓일수록 가치가 생기는 업무</p></div>
-    <div class="card"><div class="card-icon">✍️</div><h3>콘텐츠 만드는 사람</h3><p>유튜브, 블로그, SNS를 위해 아이디어와 자료를 연결하고 싶은 분</p></div>
-    <div class="card"><div class="card-icon">🛠️</div><h3>바이브 코딩하는 사람</h3><p>AI와 함께 프로덕트를 만들며 결정 사항, 코드 맥락을 잃지 않고 싶은 분</p></div>
-  </div>
-
-  <div class="info info-p">📌 <strong>처음 오셨나요?</strong> <strong>🚀 첫 걸음</strong> 탭으로 이동하세요. ZIP 파일 해제부터 첫 사용까지 시각적으로 단계별로 안내합니다. 터미널이나 코딩 지식이 전혀 없어도 됩니다.</div>
+  <div class="info info-p" style="margin-top:20px">📌 <strong>처음 오셨나요?</strong> → <strong>🚀 첫 걸음</strong> 탭을 누르세요. ZIP 해제부터 첫 사용까지 단계별로 안내합니다. 터미널·코딩 지식 없이도 됩니다.</div>
 </div>
 
 <!-- ② 첫 걸음 -->
