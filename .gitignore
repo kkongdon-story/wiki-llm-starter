@@ -5,8 +5,12 @@ node_modules/
 .omc/state/
 .omc/logs/
 
-# Namba 로그
+# Namba 로그 및 개인 설정
 .namba/logs/
+.namba/config/sections/user.yaml
+
+# OMX 세션 상태
+.omx/
 
 # 임시 파일
 *.tmp

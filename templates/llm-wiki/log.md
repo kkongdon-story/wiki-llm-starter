@@ -13,8 +13,8 @@
 - Added concept pages for LLM memory, context window, external memory, and project memory.
 - Added entity page for vector database and workflow page for managing AI memory.
 - Updated `wiki/index.md`, `wiki/concepts/llm-wiki.md`, and `ontology/abox.json`.
-- Validation passed with `C:\Python313\python.exe scripts\ontology_reasoner.py --root templates\llm-wiki`.
-- Lint passed with `C:\Python313\python.exe scripts\lint_wiki.py --root templates\llm-wiki`.
+- Validation passed with `python scripts/ontology_reasoner.py --root templates/llm-wiki`.
+- Lint passed with `python scripts/lint_wiki.py --root templates/llm-wiki`.
 - Uncertainty: source date is not available from the raw transcript, and some tool names appear to be transcript errors.
 - Next question: decide which user/project facts should live in project memory versus durable wiki pages.
 
@@ -28,7 +28,7 @@
 ## 2026-06-17 인프라 — gbrain MCP 검색 레이어 통합
 
 - gbrain v0.42.47.0 설치 (`bun install -g github:garrytan/gbrain`).
-- PGLite 뇌 초기화: `C:\Users\js480\.gbrain\brain.pglite`.
+- PGLite 뇌 초기화: `~/.gbrain/brain.pglite`.
 - 검색 모드를 `conservative`로 설정 (비용 최적화).
 - Claude Code MCP 서버 등록: `claude mcp add gbrain -- gbrain serve`.
 - `wiki/` 13개 페이지, 25개 청크 초기 인덱싱 완료.
